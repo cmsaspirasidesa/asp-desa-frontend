@@ -17,7 +17,7 @@
         {{ aspirasi.deskripsi }}
       </p>
       <div class=" mt-5">
-        <a href="#" class="px-4 py-2 bg-blue-700 rounded-md text-white">Detail</a>
+        <a href="#" class="px-4 py-2 bg-indigo-600 rounded-md text-white">Detail</a>
       </div>
     </div>
   </div>

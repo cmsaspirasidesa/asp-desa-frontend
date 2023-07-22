@@ -4,7 +4,7 @@ import {PhotoIcon} from '@heroicons/vue/24/solid'
 
 <template>
   <form
-    class="md:max-w-[400px] max-w-[350px] w-full m-auto md:my-10 flex flex-col px-2 py-5 sm:p-10 rounded-[12px] md:border md:border-solid md:border-gray-300">
+    class="md:max-w-[400px] max-w-[350px] w-full m-auto md:mt-10 flex flex-col px-2 py-5 sm:p-10 rounded-[12px] md:border md:border-solid md:border-gray-300">
     <div>
       <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Nama</label>
       <div class="mt-2">
