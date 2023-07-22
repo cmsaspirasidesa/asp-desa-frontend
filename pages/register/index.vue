@@ -1,11 +1,13 @@
+<script setup>
+definePageMeta({
+  layout: 'register',
+});
+</script>
+
 <template>
   <div>
     <Register />
   </div>
 </template>
-
-<script setup>
-// import Register from "~/components/Register.vue";
-</script>
 
 <style></style>

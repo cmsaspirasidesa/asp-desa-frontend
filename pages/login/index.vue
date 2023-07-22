@@ -1,4 +1,7 @@
 <script setup>
+definePageMeta({
+  layout: 'register',
+});
 </script>
 
 <template>

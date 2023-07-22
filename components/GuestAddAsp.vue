@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 rounded-2xl min-w-full lg:px-10 md:px-5 mx-10">
-    <div class="py-3 px-4 mx-auto max-w-2xl">
+  <div class="bg-white dark:bg-gray-900 rounded-2xl lg:px-10 md:px-5 mx-10">
+    <div class="py-3 px-4 mx-auto">
       <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
         Form Aspirasi
       </h2>
@@ -17,7 +17,7 @@
               name="name"
               id="name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Masukkan nama Anda"
+              placeholder="Masukkan nama anda"
               required="true"
             />
           </div>

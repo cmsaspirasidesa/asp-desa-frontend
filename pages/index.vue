@@ -14,12 +14,13 @@ onMounted(() => {
       class="bg-slate-200 top-0 dark:bg-gray-900"
     >
       <div
-        class="flex justify-around py-4 px-4 mx-auto max-w-screen-xl lg:gap-8 xl:gap-0"
+        class="flex justify-around py-4 px-4 mx-auto max-w-screen-xl lg:gap-0 xl:gap-0"
       >
-        <div class="flex-1">
+        <div class="w-full lg:max-w-2xl">
           <GuestAddAsp />
         </div>
-        <div class="flex-1">
+        <div class="hidden items-center lg:flex">
+          <GuestRegisCard />
         </div>
       </div>
     </section>
