@@ -1,5 +1,5 @@
 <template>
-  <div class="relative pt-16">
+  <div class="relative">
     <div
       class="relative rounded-xl overflow-hidden bg-slate-100 min-h-[50vw] md:min-h-[30vw] lg:min-h-[20vw] lg:max-h-[20vw]"
     >

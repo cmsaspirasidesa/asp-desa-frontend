@@ -11,35 +11,15 @@ onMounted(() => {
   <div>
     <section
       id="home-section"
-      class="bg-slate-100 top-0 dark:bg-gray-900"
+      class="bg-slate-200 top-0 dark:bg-gray-900"
     >
       <div
-        class="grid py-8 px-4 mx-auto max-w-screen-xl lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12"
+        class="flex justify-around py-4 px-4 mx-auto max-w-screen-xl lg:gap-8 xl:gap-0"
       >
-        <div class="place-self-center mr-auto lg:col-span-7">
-          <h1
-            class="mb-4 max-w-2xl text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white"
-          >
-            Payments tool for software companies
-          </h1>
-          <p
-            class="mb-6 max-w-2xl font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
-          >
-            From checkout to global sales tax compliance, companies around the
-            world use Flowbite to simplify their payment stack.
-          </p>
-          <NuxtLink
-            to="#"
-            class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-          >
-            Speak to Sales
-          </NuxtLink>
+        <div class="flex-1">
+          <GuestAddAsp />
         </div>
-        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <img
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
-            alt="mockup"
-          />
+        <div class="flex-1">
         </div>
       </div>
     </section>
@@ -49,15 +29,14 @@ onMounted(() => {
       class="bg-gray-50 dark:bg-gray-800"
     >
       <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div class="mb-8 max-w-screen-md lg:mb-16">
+        <div class="mb-4 max-w-screen-md">
           <h2
             class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white"
           >
-            Designed for business teams like yours
+            Daftar Aspirasi
           </h2>
           <p class="text-gray-500 sm:text-xl dark:text-gray-400">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas. Nulla et elit dignissim, egestas dolor et, eleifend orci.
           </p>
         </div>
         <div

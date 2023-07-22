@@ -6,12 +6,14 @@ const activeLink = ref('/');
 const handleScroll = () => {
   const homeSection = document.getElementById('home-section');
   const aspirasiSection = document.getElementById('aspirasi-section');
+  const navbar = document.getElementById('guest-navbar');
 
   if (homeSection && aspirasiSection) {
     const scrollTop = window.scrollY;
     const aspirasiSectionTop = aspirasiSection.offsetTop;
+    const navbarHeight = navbar.offsetHeight
 
-    if (scrollTop >= 0 && scrollTop < aspirasiSectionTop) {
+    if (scrollTop >= 0 && scrollTop < (aspirasiSectionTop - navbarHeight)) {
       activeLink.value = '/';
     } else {
       activeLink.value = '/#aspirasi-section';
@@ -31,7 +33,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="sticky top-0 z-10 shadow-md">
+  <header id="guest-navbar" class="sticky top-0 z-10 shadow-md">
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
       <div
         class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
