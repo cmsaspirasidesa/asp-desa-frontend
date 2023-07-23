@@ -1,6 +1,5 @@
 <script setup>
 import {Disclosure, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue'
-import {UserCircleIcon} from '@heroicons/vue/24/solid';
 import Desa from '../assets/image/Desa.png'
 </script>
 
@@ -19,7 +18,7 @@ import Desa from '../assets/image/Desa.png'
             <div>
               <MenuButton
                 class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                <UserCircleIcon class="h-8 w-8 rounded-full text-white" />
+                <Icon name="el:adult" class="h-8 w-8 rounded-full text-white" />
               </MenuButton>
             </div>
             <transition enter-active-class="transition ease-out duration-100"

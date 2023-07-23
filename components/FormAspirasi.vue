@@ -1,5 +1,4 @@
 <script setup>
-import {PhotoIcon} from '@heroicons/vue/24/solid'
 const gambar = reactive([])
 const notImage = ref(false)
 const batas = ref(false)
@@ -101,7 +100,7 @@ function removeImage(index) {
       <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10" @drop="onDrop"
         @dragover="onOver">
         <div class="text-center">
-          <PhotoIcon class="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+          <Icon name="heroicons-solid:photo" class="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
           <div class="mt-4 flex text-sm leading-6 text-gray-600">
             <label for="foto"
               class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
