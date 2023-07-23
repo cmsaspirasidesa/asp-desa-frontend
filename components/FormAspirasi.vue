@@ -106,7 +106,7 @@ function removeImage(index) {
             <label for="foto"
               class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
               <span>Upload a file</span>
-              <input id="foto" name="foto" multiple type="file" class="sr-only" @change="onFileChange" />
+              <input id="foto" name="foto" multiple type="file" class="sr-only" @change="onFileChange" accept="image/*" />
             </label>
             <p class="pl-1">or drag and drop</p>
           </div>
