@@ -6,13 +6,14 @@ module.exports = {
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
-    "./app.vue",
+    './app.vue',
     './node_modules/flowbite/**/*.{js,ts}',
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('@tailwindcss/forms'),
   ],
 };
