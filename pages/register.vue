@@ -1,5 +1,16 @@
+<script setup>
+import { onMounted } from 'vue';
+import { initFlowbite } from 'flowbite';
+
+onMounted(() => {
+  initFlowbite();
+});
+
+definePageMeta({
+  layout: 'register',
+});
+</script>
+
 <template>
-  <div>
-    <Register />
-  </div>
+  <FormRegister />
 </template>
