@@ -13,6 +13,10 @@ function ubah() {
     mata.value = 'entypo:eye'
   }
 }
+
+definePageMeta({
+  layout: 'register',
+});
 </script>
 
 <template>
