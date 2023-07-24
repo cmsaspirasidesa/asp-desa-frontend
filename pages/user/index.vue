@@ -33,7 +33,6 @@ const aspirasi = [
 </script>
 
 <template>
-  <NavbarUser />
   <div class="flex flex-col md:flex-row gap-8 lg:mx-8">
     <FormAspirasi />
     <div>
