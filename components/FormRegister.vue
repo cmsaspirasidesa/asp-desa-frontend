@@ -54,7 +54,7 @@
                 placeholder="Masukkan alamat anda" required="true" />
             </div>
             <div class="pt-5">
-              <button type="submit" @click="handleSubmit"
+              <button type="button" @click="handleSubmit"
                 class="w-full text-teal-950 bg-teal-200 font-bold hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 Daftar
               </button>
@@ -93,24 +93,40 @@ const clearErrorMessage = () => {
   passwordError.value = '';
 };
 
-const handleSubmit = () => {
-  submitted.value = true;
-  passwordError.value = '';
+async function handleSubmit() {
+  // submitted.value = true;
+  // passwordError.value = '';
 
-  if (password.value === '') {
-    passwordError.value = 'Kata sandi tidak boleh kosong!';
-  }
+  // if (password.value === '') {
+  //   passwordError.value = 'Kata sandi tidak boleh kosong!';
+  //   return
+  // }
 
-  if (password.value !== '' && password.value !== confirmPassword.value) {
-    passwordError.value =
-      'Kata sandi tidak sesuai dengan konfirmasi kata sandi.';
-  }
+  // if (password.value !== '' && password.value) {
+  //   passwordError.value = 'Kata sandi tidak sesuai dengan konfirmasi kata sandi.';
+  //   return
+  // }
 
-  if (!passwordError.value) {
-    password.value = '';
-    confirmPassword.value = '';
-    submitted.value = false;
-  }
+  // if (!passwordError.value) {
+  //   password.value = '';
+  //   confirmPassword.value = '';
+  //   submitted.value = false;
+  //   return
+  // }
+  const {data, pending, error, refresh} = await useFetch('http://localhost:6969/register', {
+    method: 'POST',
+    body: {
+      'nama': 'Ruhyan',
+      'email': 'Ruhyan@gmail.com',
+      'password': '1234567890',
+      'alamat': 'jl.rawabebek, pasar senen, jakarta',
+      'nik': '121212121679',
+    },
+  })
+
+  $fetch('', {
+
+  })
 };
 </script>
 <style>
