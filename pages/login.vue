@@ -63,7 +63,9 @@ definePageMeta({
 
       <p class="mt-10 text-sm text-center text-gray-500">
         Belum punya akun?
-        <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Daftar</a>
+        <NuxtLink to="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          Daftar
+        </NuxtLink>
       </p>
     </div>
   </div>
