@@ -8,6 +8,7 @@ module.exports = {
     './nuxt.config.{js,ts}',
     './app.vue',
     './node_modules/flowbite/**/*.{js,ts}',
+    './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
     extend: {},
@@ -15,5 +16,6 @@ module.exports = {
   plugins: [
     require('flowbite/plugin'),
     require('@tailwindcss/forms'),
+    require("tw-elements/dist/plugin.cjs")
   ],
 };

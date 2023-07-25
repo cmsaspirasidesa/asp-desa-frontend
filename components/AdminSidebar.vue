@@ -43,8 +43,8 @@
       </form>
       <ul class="space-y-2">
         <li>
-          <a
-            href="#"
+          <NuxtLink
+            to="/admin"
             class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -58,7 +58,7 @@
               <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
             </svg>
             <span class="ml-3">Dashboard</span>
-          </a>
+          </NuxtLink>
         </li>
         <li>
           <button
