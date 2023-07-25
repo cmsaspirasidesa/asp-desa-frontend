@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted } from 'vue';
-import { initFlowbite } from 'flowbite';
+import {onMounted} from 'vue';
+import {initFlowbite} from 'flowbite';
 
 onMounted(() => {
   initFlowbite();
@@ -8,6 +8,10 @@ onMounted(() => {
 
 definePageMeta({
   layout: 'register',
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/user',
+  }
 });
 </script>
 

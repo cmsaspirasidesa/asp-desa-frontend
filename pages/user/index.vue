@@ -1,5 +1,5 @@
 <script setup>
-import Masjid from '../assets/image/Masjid1.jpg'
+import Masjid from '../../assets/image/Masjid1.jpg'
 const aspirasi = [
   {
     id: 1,
@@ -33,11 +33,11 @@ const aspirasi = [
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row gap-8 lg:mx-8">
+  <div class="flex flex-col gap-8 md:flex-row lg:mx-8">
     <FormAspirasi />
     <div>
       <FormSeacrh />
-      <div class="flex gap-y-6 mt-6 flex-wrap">
+      <div class="flex flex-wrap mt-6 gap-y-6">
         <CardAspirasi v-for="item of aspirasi" :aspirasi="item" :key="item.id" />
       </div>
     </div>

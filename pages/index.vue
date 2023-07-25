@@ -1,6 +1,12 @@
 <script setup>
-import { onMounted } from 'vue';
-import { initFlowbite } from 'flowbite';
+import {onMounted} from 'vue';
+import {initFlowbite} from 'flowbite';
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/user',
+  }
+});
 
 onMounted(() => {
   initFlowbite();
@@ -9,50 +15,37 @@ onMounted(() => {
 
 <template>
   <div>
-    <section
-      id="home-section"
-      class="bg-slate-200 top-0 dark:bg-gray-900"
-    >
-      <div
-        class="flex justify-around py-4 px-4 mx-auto max-w-screen-xl lg:gap-0 xl:gap-0"
-      >
+    <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
+      <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
         <div class="w-full lg:max-w-2xl">
           <GuestAddAsp />
         </div>
-        <div class="hidden items-center lg:flex">
+        <div class="items-center hidden lg:flex">
           <GuestRegisCard />
         </div>
       </div>
     </section>
 
-    <section
-      id="aspirasi-section"
-      class="bg-gray-50 dark:bg-gray-800"
-    >
-      <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div class="mb-4 max-w-screen-md">
-          <h2
-            class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white"
-          >
+    <section id="aspirasi-section" class="bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6">
+        <div class="max-w-screen-md mb-4">
+          <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
             Daftar Aspirasi
           </h2>
           <p class="text-gray-500 sm:text-xl dark:text-gray-400">
-            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas. Nulla et elit dignissim, egestas dolor et, eleifend orci.
+            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas. Nulla et elit dignissim, egestas dolor et,
+            eleifend orci.
           </p>
         </div>
-        <div
-          class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0"
-        >
+        <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0">
           <GuestAspCard />
         </div>
       </div>
     </section>
 
     <section class="bg-gray-50 dark:bg-gray-900">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div
-          class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400"
-        >
+      <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+        <div class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
           <h2 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
             Lorem ipsum dolor
             <span class="font-extrabold">200,000+</span> laoreet vehicula
@@ -71,22 +64,13 @@ onMounted(() => {
             Nulla et elit dignissim, egestas dolor et, eleifend orci. Mauris
             convallis lobortis risus, a vehicula odio bibendum non.
           </p>
-          <NuxtLink
-            to="/"
-            class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
-          >
+          <NuxtLink to="/"
+            class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
             Learn more
-            <svg
-              class="ml-1 w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
+            <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              ></path>
+                clip-rule="evenodd"></path>
             </svg>
           </NuxtLink>
         </div>
