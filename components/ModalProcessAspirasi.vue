@@ -2,13 +2,15 @@
   <!-- Modal toggle -->
   <div class="flex justify-center m-5">
     <button
-      id="deleteButton"
+      id="processButton"
       data-modal-toggle="deleteModal"
       class="block text-white bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-700"
       type="button"
     >
-      <span class="font-medium">Proses</span>
-      <Icon name="fa6-solid:hourglass-half" size="1rem" />
+      <div class="flex items-center justify-center gap-2">
+        <span class="font-medium">Proses</span>
+        <Icon name="fa6-solid:hourglass-half" size="1rem" />
+      </div>
     </button>
   </div>
 
