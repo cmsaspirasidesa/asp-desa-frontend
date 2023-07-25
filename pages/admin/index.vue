@@ -1,18 +1,16 @@
 <script setup>
-import { onMounted } from 'vue';
-import { initFlowbite } from 'flowbite';
-
-onMounted(() => {
-  initFlowbite();
-});
-
 definePageMeta({
   layout: 'admin',
 });
 </script>
 
 <template>
-  <div>
-    
-  </div>
+  <main class="flex flex-col p-4 md:ml-64 h-auto">
+    <div class="flex justify-center">
+      <ClientOnly>
+        <BarChart />
+        <LineChart />
+      </ClientOnly>
+    </div>
+  </main>
 </template>

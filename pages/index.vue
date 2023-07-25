@@ -1,16 +1,4 @@
 <script setup>
-import {onMounted} from 'vue';
-import {initFlowbite} from 'flowbite';
-definePageMeta({
-  auth: {
-    unauthenticatedOnly: true,
-    navigateAuthenticatedTo: '/user',
-  }
-});
-
-onMounted(() => {
-  initFlowbite();
-});
 </script>
 
 <template>

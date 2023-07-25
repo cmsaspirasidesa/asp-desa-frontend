@@ -6,7 +6,7 @@ definePageMeta({
 
 <template>
   <main class="flex flex-col p-4 md:ml-64 h-auto">
-    <div><h1 class="text-2xl mb-8 font-bold">Manajemen User</h1></div>
+    <div><h1 class="text-2xl mb-8 font-bold">Manajemen Aspirasi</h1></div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="flex items-center justify-between pb-4">
         <div>
@@ -187,10 +187,192 @@ definePageMeta({
           />
         </div>
       </div>
-      <div>
-        <UserTable/>
-      </div>
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th
+              scope="col"
+              class="p-4"
+            >
+              <span class="text-lg">#</span>
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Nama User
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Judul
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Alamat
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Deskripsi
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Lokasi
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Komentar
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Status
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">1</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+            
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+          </tr>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">2</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            
+          </tr>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">3</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            
+          </tr>      
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">4</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            
+          </tr>      
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">5</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            
+          </tr>      
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <td class="w-4 p-4">
+              <span class="text-black font-semibold">6</span>
+            </td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              
+            </th>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4"></td>
+            
+          </tr>      
+          
+          
+          
+        </tbody>
+      </table>
     </div>
-    <PaginationBlock/>
+    <nav
+      class="flex items-center justify-between pt-4"
+      aria-label="Table navigation"
+    >
+      <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
+        >Showing
+        <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of
+        <span class="font-semibold text-gray-900 dark:text-white"
+          >1000</span
+        ></span
+      >
+      <PaginationBlock />
+    </nav>
   </main>
 </template>
