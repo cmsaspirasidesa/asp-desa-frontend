@@ -14,24 +14,6 @@ function ubah() {
   }
 }
 
-const { authenticateUser } = useAuthStore(); // Use authenticateUser action from auth store
-
-const authenticated = ref(false); // Make authenticated state reactive with ref
-
-const user = ref({
-  username: 'kminchelle', 
-  password: '0lelplR',
-});
-const router = useRouter();
-
-const login = async () => {
-  await authenticateUser(user.value); // Call authenticateUser and pass the user object
-  // Redirect to homepage if user is authenticated
-  if (authenticated.value) {
-    router.push('/');
-  }
-};
-
 definePageMeta({
   layout: 'register',
 });
