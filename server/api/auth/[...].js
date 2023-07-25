@@ -22,7 +22,6 @@ export default NuxtAuthHandler({
           body: JSON.stringify(data)
         })
         const user = await res.json()
-        console.log(user)
         if (user) {
           return user.data
         }
