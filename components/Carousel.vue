@@ -1,11 +1,13 @@
 <template>
   <div
     id="gallery"
-    class="relative w-full lg:bg-gray-300 xl:mx-5"
+    class="relative w-full lg:bg-gray-300 md:bg-gray-300"
     data-carousel="slide"
   >
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden md:h-96 lg:min-w-screen">
+    <div
+      class="relative h-96 overflow-hidden md:h-screen lg:min-w-screen lg:h-screen"
+    >
       <!-- Item 1 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
