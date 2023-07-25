@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <main class="flex flex-col p-4 md:ml-64 h-auto pt-20">
+  <main class="flex flex-col p-4 md:ml-64 h-auto">
     <div><h1 class="text-2xl mb-8 font-bold">Manajemen User</h1></div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="flex items-center justify-between pb-4">
