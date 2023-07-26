@@ -64,14 +64,14 @@ onUnmounted(() => {
           <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
               <NuxtLink :to="{ path: '/', hash: '#home-section' }"
-                class="block py-2 pr-4 pl-3 bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                class="block py-2 pr-4 pl-3 lg:bg-transparent lg:p-0 dark:text-white"
                 :class="{ 'lg:border-b-2 border-black pb-2': activeLink === '/', 'text-gray-500': activeLink !== '/' }">
                 Home
               </NuxtLink>
             </li>
             <li>
               <NuxtLink :to="{ path: '/', hash: '#aspirasi-section' }"
-                class="block py-2 pr-4 pl-3 bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                class="block py-2 pr-4 pl-3 lg:bg-transparent lg:p-0 dark:text-white"
                 :class="{ 'lg:border-b-2 border-black pb-2': activeLink === '/#aspirasi-section', 'text-gray-500': activeLink !== '/#aspirasi-section' }">
                 Aspirasi
               </NuxtLink>

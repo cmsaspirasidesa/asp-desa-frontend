@@ -4,9 +4,8 @@
       <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
         <div class="w-full lg:max-w-2xl">
           <FormAspirasi />
-
         </div>
-        <div class="hidden lg:flex">
+        <div class="hidden lg:flex lg:flex-col">
           <GuestRegisCard />
         </div>
       </div>

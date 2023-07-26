@@ -50,44 +50,47 @@ function removeImage(index) {
 
 <template>
   <form
-    class="md:max-w-[400px] max-w-[350px] w-full m-auto md:mt-10 flex flex-col px-2 py-5 sm:p-10 rounded-[12px] md:border md:border-solid md:border-gray-300">
+    class="bg-white md:max-w-[400px] max-w-[350px] w-full m-auto flex flex-col px-6 py-3 rounded-[12px] md:border md:border-solid md:border-gray-300">
     <div>
+      <div class="px-4 mx-auto">
+        <h2 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white text-center">Form Aspirasi</h2>
+      </div>
       <label for="nama" class="block text-sm font-medium leading-6 text-gray-900">Nama</label>
       <div class="mt-2">
         <input type="text" required="true" name="nama" id="nama" autocomplete="nama"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
     </div>
-    <div class="mt-6">
+    <div class="mt-2">
       <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
       <div class="mt-2">
         <input type="email" required="true" name="email" id="email" autocomplete="email"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
     </div>
-    <div class="mt-6">
+    <div class="mt-2">
       <label for="judul" required="true" class="block text-sm font-medium leading-6 text-gray-900">Judul</label>
       <div class="mt-2">
         <input type="text" name="judul" id="judul" autocomplete="judul"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
     </div>
-    <div class="mt-6">
+    <div class="mt-2">
       <label for="alamat" required="true" class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
       <div class="mt-2">
         <input type="text" name="alamat" id="alamat" autocomplete="alamat"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
     </div>
-    <div class="mt-6">
+    <div class="mt-2">
       <label for="deskripsi" class="block text-sm font-medium leading-6 text-gray-900">Deskripsi</label>
       <div class="mt-2">
         <textarea id="deskripsi" name="deskripsi" rows="5"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
     </div>
 
-    <div class="mt-6">
+    <div class="mt-2">
       <div class="flex justify-between">
         <p class="text-sm font-medium leading-6 text-gray-900">Foto</p>
         <div v-if="notImage">
@@ -124,7 +127,7 @@ function removeImage(index) {
       </div>
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
+    <div class="mt-2 flex items-center justify-end gap-x-6">
       <button type="submit"
         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
     </div>
