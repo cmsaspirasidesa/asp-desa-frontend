@@ -1,4 +1,10 @@
 <script setup>
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/user',
+  }
+});
 </script>
 
 <template>

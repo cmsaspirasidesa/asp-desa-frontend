@@ -1,4 +1,5 @@
 <script setup>
+import desa from '../assets/image/Desa.png'
 // Reactive data to store the active link
 const activeLink = ref('/');
 
@@ -35,9 +36,9 @@ onUnmounted(() => {
 <template>
   <header id="guest-navbar" class="sticky top-0 z-50 shadow-md">
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-      <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
         <NuxtLink to="/" class="flex items-center">
-          <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+          <img :src="desa" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
           <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Aspirasi Desa</span>
         </NuxtLink>
         <div class="flex items-center lg:order-2">
@@ -60,18 +61,18 @@ onUnmounted(() => {
             </svg>
           </button>
         </div>
-        <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
               <NuxtLink :to="{ path: '/', hash: '#home-section' }"
-                class="block py-2 pr-4 pl-3 bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                class="block py-2 pl-3 pr-4 text-black bg-primary-700 lg:bg-transparent lg:p-0 dark:text-white"
                 :class="{ 'lg:border-b-2 border-black pb-2': activeLink === '/', 'text-gray-500': activeLink !== '/' }">
                 Home
               </NuxtLink>
             </li>
             <li>
               <NuxtLink :to="{ path: '/', hash: '#aspirasi-section' }"
-                class="block py-2 pr-4 pl-3 bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                class="block py-2 pl-3 pr-4 text-black bg-primary-700 lg:bg-transparent lg:p-0 dark:text-white"
                 :class="{ 'lg:border-b-2 border-black pb-2': activeLink === '/#aspirasi-section', 'text-gray-500': activeLink !== '/#aspirasi-section' }">
                 Aspirasi
               </NuxtLink>
