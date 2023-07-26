@@ -37,7 +37,8 @@ const aspirasi = [
 ]
 
 definePageMeta({
-  layout: 'user'
+  layout: 'user',
+  middleware: ['admin'],
 })
 </script>
 
