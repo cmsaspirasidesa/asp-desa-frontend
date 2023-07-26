@@ -1,7 +1,7 @@
 <template>
   <div>
-    <UserNavbar/>
-    <AdminSidebar/>
-    <slot/>
+    <UserNavbar />
+    <slot />
+    <AdminSidebar />
   </div>
 </template>

@@ -12,15 +12,15 @@
     <br>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   auth: {
     // unauthenticatedOnly: true,
     // navigateAuthenticatedTo: '/jaga',
   }
 })
-const { signIn, signOut, status, data, getSession, getProviders } = useAuth()
-const headers = useRequestHeaders(['cookie']) as HeadersInit
-const { data: token } = await useFetch('/api/token', { headers })
-const access = token.value!.jwt
+const {signIn, signOut, status, data, getSession, getProviders} = useAuth()
+const headers = useRequestHeaders(['cookie'])
+const {data: token} = await useFetch('/api/token', {headers})
+const access = token.value
 </script>
