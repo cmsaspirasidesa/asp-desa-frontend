@@ -39,20 +39,20 @@ const aspirations = [
 const {data} = useAuth();
 
 const handleUserAddsAsp = async (formAddData) => {
-  await useFetch('http://localhost:6969/aspirations', {
-    method: 'POST',
+  await useFetch("http://localhost:6969/aspirations", {
+    method: "POST",
     headers: {
       'authorization': data.token.jwt,
       'Content-Type': 'multipart/form-data',
     },
     body: {
-      judul: formAddData.title,
+      subject: formAddData.title,
       deskripsi: formAddData.description,
       lokasi: formAddData.aspLocation,
-      images: formAddData.formImages
-    }
-  })
-}
+      images: descriptionormAddData.formImages,
+    },
+  });
+};
 
 definePageMeta({
   layout: 'user',
