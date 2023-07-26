@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div>
@@ -11,7 +10,7 @@
         class="flex justify-around py-4 px-4 mx-auto max-w-screen-xl lg:gap-0 xl:gap-0"
       >
         <div class="w-full lg:max-w-2xl">
-          <GuestAddAsp />
+          <FormAspirasi />
         </div>
         <div class="hidden items-center lg:flex">
           <GuestRegisCard />
@@ -31,13 +30,16 @@
             Daftar Aspirasi
           </h2>
           <p class="text-gray-500 sm:text-xl dark:text-gray-400">
-            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas. Nulla et elit dignissim, egestas dolor et, eleifend orci.
+            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas.
+            Nulla et elit dignissim, egestas dolor et, eleifend orci.
           </p>
         </div>
         <div
           class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0"
         >
-          <GuestAspCard />
+          <NuxtLink>
+            <GuestAspCard />
+          </NuxtLink>
         </div>
       </div>
     </section>
