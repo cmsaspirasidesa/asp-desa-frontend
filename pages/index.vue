@@ -6,7 +6,7 @@
           <FormAspirasi />
 
         </div>
-        <div class="items-center hidden lg:flex">
+        <div class="hidden lg:flex">
           <GuestRegisCard />
         </div>
       </div>
