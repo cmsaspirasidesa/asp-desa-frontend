@@ -5,7 +5,11 @@
       @click="signIn('credentials', { email: 'admin1@gmail.com', password: '123', page: 'login' })">in</button>
     <button class="p-4 bg-red-500" @click="signOut()">out</button>
     <p>{{ status }}</p>
+    <br>
     <p>{{ data }}</p>
+    <br>
+    <p>{{ access }}</p>
+    <br>
   </div>
 </template>
 <script setup lang="ts">
@@ -15,5 +19,8 @@ definePageMeta({
     // navigateAuthenticatedTo: '/jaga',
   }
 })
-const { signIn, signOut, status, data } = useAuth()
+const { signIn, signOut, status, data, getSession, getProviders } = useAuth()
+const headers = useRequestHeaders(['cookie']) as HeadersInit
+const { data: token } = await useFetch('/api/token', { headers })
+const access = token.value!.jwt
 </script>

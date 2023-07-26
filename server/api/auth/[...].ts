@@ -1,5 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
-import {NuxtAuthHandler} from '#auth'
+import { NuxtAuthHandler } from '#auth'
 
 export default NuxtAuthHandler({
   pages: {
@@ -7,26 +7,27 @@ export default NuxtAuthHandler({
   },
   secret: 'Rahasia',
   callbacks: {
-    jwt: async ({token, user}) => {
+    jwt: async ({ token, user }) => {
       // console.log(user)
       const isSignIn = user ? true : false;
       if (isSignIn) {
-        token.jwt = user ? (user).access_token || '' : '';
+        token.jwt = user ? (user as any).access_token || '' : '';
         token.id = user ? user.id || '' : '';
-        token.role = user ? (user).role || '' : '';
+        token.role = user ? (user as any).role || '' : '';
       }
       return Promise.resolve(token);
     },
-    session: async ({session, token}) => {
-      (session).role = token.role;
-      (session).uid = token.id;
+    session: async ({ session, token }) => {
+      (session as any).role = token.role;
+      (session as any).uid = token.id;
       return Promise.resolve(session);
     },
   },
   providers: [
+    // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     CredentialsProvider.default({
       name: 'Credentials',
-      async authorize(credentials) {
+      async authorize(credentials: any) {
         const data = {
           email: credentials.email,
           password: credentials.password,
@@ -39,8 +40,8 @@ export default NuxtAuthHandler({
           body: JSON.stringify(data)
         })
         const user = await res.json()
-        console.log(user)
-        if (user.data.nama) {
+        // console.log(user)
+        if (user.data.id) {
           const u = {
             id: user.data.id,
             name: user.data.nama,
