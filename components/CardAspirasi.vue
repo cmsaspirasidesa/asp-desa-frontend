@@ -7,7 +7,7 @@
       <div class="flex justify-between mt-4">
         <div>
           <h3 class="text-lg font-medium text-gray-700">
-            {{ aspirations.headline }}
+            {{ aspirations.subject }}
           </h3>
         </div>
         <p class="px-2 py-1 text-sm font-medium text-gray-900 border border-gray-300 border-solid rounded-md">{{
