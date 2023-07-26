@@ -1,5 +1,6 @@
 <script setup>
 import Masjid from '../../assets/image/Masjid1.jpg'
+import Masjid2 from '../../assets/image/Masjid2.jpg'
 const aspirasi = [
   {
     id: 1,
@@ -12,7 +13,7 @@ const aspirasi = [
   {
     id: 1,
     judul: "Bangun Masjid",
-    imageSrc: Masjid,
+    imageSrc: Masjid2,
     status: "Proses",
     deskripsi:
       "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
@@ -28,7 +29,7 @@ const aspirasi = [
   {
     id: 1,
     judul: "Bangun Masjid",
-    imageSrc: Masjid,
+    imageSrc: Masjid2,
     status: "Proses",
     deskripsi:
       "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
@@ -45,9 +46,9 @@ definePageMeta({
     <FormAspirasi />
     <div>
       <FormSeacrh />
-      <div class="flex flex-wrap my-6 gap-y-6">
+      <NuxtLink to="/detail_aspirasi" class="flex flex-wrap my-6 gap-y-6">
         <CardAspirasi v-for="item of aspirasi" :aspirasi="item" :key="item.id" />
-      </div>
+      </NuxtLink>
     </div>
   </div>
 </template>

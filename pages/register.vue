@@ -7,6 +7,7 @@ const password = ref('')
 const nik = ref('')
 const alamat = ref('')
 const dataError = ref(false)
+const showPassword = ref(false)
 definePageMeta({
   layout: 'register',
   auth: {
@@ -14,6 +15,11 @@ definePageMeta({
     navigateAuthenticatedTo: '/user',
   }
 });
+
+function togglePassword() {
+  showPassword.value = !showPassword.value
+  console.log(showPassword)
+}
 
 async function register() {
   const formData = {

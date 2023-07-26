@@ -6,6 +6,23 @@ export default NuxtAuthHandler({
     signIn: '/login',
   },
   secret: 'Rahasia',
+  callbacks: {
+    jwt: async ({token, user}) => {
+      // console.log(user)
+      const isSignIn = user ? true : false;
+      if (isSignIn) {
+        token.jwt = user ? (user).access_token || '' : '';
+        token.id = user ? user.id || '' : '';
+        token.role = user ? (user).role || '' : '';
+      }
+      return Promise.resolve(token);
+    },
+    session: async ({session, token}) => {
+      (session).role = token.role;
+      (session).uid = token.id;
+      return Promise.resolve(session);
+    },
+  },
   providers: [
     CredentialsProvider.default({
       name: 'Credentials',
@@ -22,8 +39,17 @@ export default NuxtAuthHandler({
           body: JSON.stringify(data)
         })
         const user = await res.json()
-        if (user) {
-          return user.data
+        console.log(user)
+        if (user.data.nama) {
+          const u = {
+            id: user.data.id,
+            name: user.data.nama,
+            email: user.data.email,
+            access_token: user.data.access_token,
+            refresh_token: user.data.refresh_token,
+            role: user.data.Role.nama_role
+          };
+          return u;
         }
         else {
           return null

@@ -1,3 +1,12 @@
+<script setup>
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/user',
+  }
+});
+</script>
+
 <template>
   <div>
     <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
@@ -22,9 +31,7 @@
             Nulla et elit dignissim, egestas dolor et, eleifend orci.
           </p>
         </div>
-        <div
-          class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0"
-        >
+        <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0">
           <NuxtLink>
             <GuestAspCard />
           </NuxtLink>
