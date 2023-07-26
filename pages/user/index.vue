@@ -1,61 +1,61 @@
 <script setup>
-import Masjid from '../../assets/image/Masjid1.jpg';
-import Masjid2 from '../../assets/image/Masjid2.jpg';
-const aspirasi = [
+import Masjid from "../../assets/image/Masjid1.jpg";
+import Masjid2 from "../../assets/image/Masjid2.jpg";
+const aspirations = [
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: "Bangun Masjid",
     imageSrc: Masjid,
-    status: 'Proses',
-    deskripsi:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: "Bangun Masjid",
     imageSrc: Masjid2,
-    status: 'Proses',
-    deskripsi:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: "Bangun Masjid",
     imageSrc: Masjid,
-    status: 'Proses',
-    deskripsi:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: "Bangun Masjid",
     imageSrc: Masjid2,
-    status: 'Proses',
-    deskripsi:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
   },
 ];
 
 const { data } = useAuth();
 
 const handleUserAddsAsp = async (formAddData) => {
-  await useFetch('http://localhost:6969/aspirations', {
-    method: 'POST',
+  await useFetch("http://localhost:6969/aspirations", {
+    method: "POST",
     headers: {
-      'authorization': data.token.jwt, 
-      'Content-Type': 'multipart/form-data',
+      authorization: data.token.jwt,
+      "Content-Type": "multipart/form-data",
     },
     body: {
-      judul: formAddData.title,
+      subject: formAddData.title,
       deskripsi: formAddData.description,
       lokasi: formAddData.aspLocation,
-      images: formAddData.formImages
-    }
-  })
-}
+      images: descriptionormAddData.formImages,
+    },
+  });
+};
 
 definePageMeta({
-  layout: 'user',
+  layout: "user",
 });
 </script>
 
@@ -64,13 +64,10 @@ definePageMeta({
     <FormAspirasi @user-adds-asp="handleUserAddsAsp" />
     <div>
       <FormSeacrh />
-      <NuxtLink
-        to="/detail_aspirasi"
-        class="flex flex-wrap my-6 gap-y-6"
-      >
+      <NuxtLink to="/detail-aspirasi" class="flex flex-wrap my-6 gap-y-6">
         <CardAspirasi
-          v-for="item of aspirasi"
-          :aspirasi="item"
+          v-for="item of aspirations"
+          :aspirations="item"
           :key="item.id"
         />
       </NuxtLink>

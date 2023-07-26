@@ -13,7 +13,7 @@
       <div class="flex justify-between mt-4">
         <div>
           <h3 class="text-lg font-medium text-gray-700">
-            {{ aspirations.headline }}
+            {{ aspirations.subject }}
           </h3>
         </div>
         <p
