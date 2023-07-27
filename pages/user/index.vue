@@ -1,62 +1,38 @@
 <script setup>
-import Masjid from '../../assets/image/Masjid1.jpg';
-import Masjid2 from '../../assets/image/Masjid2.jpg';
-const aspirations = [
-  {
-    id: 1,
-    subject: 'Bangun Masjid',
-    imageSrc: Masjid,
-    status: 'Proses',
-    description:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
-  },
-  {
-    id: 1,
-    subject: 'Bangun Masjid',
-    imageSrc: Masjid2,
-    status: 'Proses',
-    description:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
-  },
-  {
-    id: 1,
-    subject: 'Bangun Masjid',
-    imageSrc: Masjid,
-    status: 'Proses',
-    description:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
-  },
-  {
-    id: 1,
-    subject: 'Bangun Masjid',
-    imageSrc: Masjid2,
-    status: 'Proses',
-    description:
-      'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
-  },
-];
+const listAspirations = ref(null);
+const loading = ref(true);
 
-const {data} = useAuth();
+const headers = useRequestHeaders(["cookie"]);
+const { data: token } = await useFetch("/api/token", { headers });
+const access = token.value;
 
-const handleUserAddsAsp = async (formAddData) => {
-  await useFetch("http://localhost:6969/aspirations", {
-    method: "POST",
-    headers: {
-      'authorization': data.token.jwt,
-      'Content-Type': 'multipart/form-data',
-    },
-    body: {
-      subject: formAddData.title,
-      deskripsi: formAddData.description,
-      lokasi: formAddData.aspLocation,
-      images: descriptionormAddData.formImages,
-    },
-  });
-};
+console.log(access);
+
+onMounted(async () => {
+  try {
+    const { data, error } = await useFetch(
+      `http://localhost:6969/aspirations/${access.id}`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (data && data.value && data.value.data && data.value.data.length > 0) {
+      listAspirations.value = data.value.data;
+    } else {
+      console.error("No data found");
+    }
+
+    loading.value = false;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    loading.value = false;
+  }
+});
 
 definePageMeta({
-  layout: 'user',
-  middleware: ['admin']
+  layout: "user",
+  middleware: ["admin"],
 });
 </script>
 
@@ -66,7 +42,11 @@ definePageMeta({
     <div>
       <FormSeacrh />
       <NuxtLink to="/detail-aspirasi" class="flex flex-wrap my-6 gap-y-6">
-        <CardAspirasi v-for="item of aspirations" :aspirations="item" :key="item.id" />
+        <CardAspirasi
+          v-for="item in listAspirations"
+          :listAspirations="item"
+          :key="item.id"
+        />
       </NuxtLink>
     </div>
   </div>

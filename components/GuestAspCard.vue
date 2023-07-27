@@ -1,23 +1,49 @@
 <template>
-  <div class="relative">
-    <div
-      class="relative rounded-xl overflow-hidden bg-slate-100 min-h-[50vw] md:min-h-[30vw] lg:min-h-[20vw] lg:max-h-[20vw]"
-    >
-      <nuxt-img
-        src="https://previews.123rf.com/images/bentchang/bentchang1803/bentchang180301115/97199926-aspirations-business-conceptual-word-cloud-for-for-design-wallpaper-texture-or-background.jpg"
-        fit="cover"
-        loading="lazy"
-      />
-      <div class="absolute inset-0 bg-black opacity-60 rounded-xl"></div>
-      <div
-        class="absolute inset-0 flex flex-col justify-center items-center px-10"
-      >
-        <h3 class="mb-2 text-white text-xl font-bold">Legal</h3>
-        <p class="text-white dark:text-gray-400">
-          Protect your organization, devices and stay compliant with our
-          structured workflows and custom permissions made for you.
+  <div
+    class="max-w-[350px] p-6 mx-auto border border-solid border-gray-300 rounded-[12px]"
+  >
+    <div :key="listAspirations.id" class="relative group">
+      <div class="h-[250px] overflow-hidden rounded-md group-hover:opacity-75">
+        <img
+          :src="listAspirations.Images[0].url"
+          alt="Gambar Aspirasi"
+          class="object-cover object-center w-full h-full"
+        />
+      </div>
+      <div class="flex justify-between mt-4">
+        <div>
+          <h3 class="text-lg font-medium text-gray-700">
+            {{ listAspirations.judul }}
+          </h3>
+        </div>
+        <p
+          class="px-2 py-1 text-sm font-medium text-gray-900 border border-gray-300 border-solid rounded-md"
+        >
+          {{ listAspirations.status }}
         </p>
+      </div>
+      <p class="mt-3 text-sm text-justify text-gray-500 line-clamp-4">
+        {{ listAspirations.deskripsi }}
+      </p>
+      <div class="mt-5">
+        <NuxtLink to="/user">
+          <span class="px-4 py-2 text-white bg-indigo-600 rounded-md"
+            >Detail</span
+          >
+        </NuxtLink>
+        <!-- <a href="#" class="px-4 py-2 text-white bg-indigo-600 rounded-md"
+          >Detail</a
+        > -->
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+defineProps({
+  listAspirations: {
+    type: Object,
+  },
+});
+console.log(listAspirations);
+</script>
