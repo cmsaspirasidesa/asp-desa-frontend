@@ -36,44 +36,25 @@ const aspirasi = [
   },
 ];
 
-const { data } = useAuth();
-
-const handleUserAddsAsp = async (formAddData) => {
-  await useFetch('http://localhost:6969/aspirations', {
-    method: 'POST',
-    headers: {
-      'authorization': data.token.jwt, 
-      'Content-Type': 'multipart/form-data',
-    },
-    body: {
-      judul: formAddData.title,
-      deskripsi: formAddData.description,
-      lokasi: formAddData.aspLocation,
-      images: formAddData.formImages
-    }
-  })
-}
-
 definePageMeta({
   layout: 'user',
 });
 </script>
 
 <template>
-  <div class="flex flex-col max-w-screen-xl gap-8 md:flex-row lg:mx-8">
-    <FormAspirasi @user-adds-asp="handleUserAddsAsp" />
-    <div>
-      <FormSeacrh />
-      <NuxtLink
-        to="/detail_aspirasi"
-        class="flex flex-wrap my-6 gap-y-6"
-      >
+  <div class="flex max-w-screen-xl gap-2 md:flex-row lg:mx-8 mt-4">
+    <div class="w-full">
+      <FormAspirasiUser />
+    </div>
+    <div class="w-full">
+      <FormSearch />
+      <div class="mt-3 flex flex-wrap w-full">
         <CardAspirasi
           v-for="item of aspirasi"
           :aspirasi="item"
           :key="item.id"
         />
-      </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
