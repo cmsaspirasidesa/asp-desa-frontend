@@ -4,10 +4,14 @@
   >
     <div :key="listAspirations.id" class="relative group">
       <div class="h-[250px] overflow-hidden rounded-md group-hover:opacity-75">
-        <img
-          :src="listAspirations.Images[0].url"
+        <!-- <img
+          :src="listAspirations.Images[0].id"
           alt="Gambar Aspirasi"
           class="object-cover object-center w-full h-full"
+        /> -->
+        <nuxt-picture
+          src="http://localhost:6969/1690385898030-image 8.png"
+          alt="Gambar Aspirasi"
         />
       </div>
       <div class="flex justify-between mt-4">
@@ -26,14 +30,9 @@
         {{ listAspirations.deskripsi }}
       </p>
       <div class="mt-5">
-        <NuxtLink to="/user">
-          <span class="px-4 py-2 text-white bg-indigo-600 rounded-md"
-            >Detail</span
-          >
-        </NuxtLink>
-        <!-- <a href="#" class="px-4 py-2 text-white bg-indigo-600 rounded-md"
+        <a href="#" class="px-4 py-2 text-white bg-indigo-600 rounded-md"
           >Detail</a
-        > -->
+        >
       </div>
     </div>
   </div>
@@ -45,5 +44,4 @@ defineProps({
     type: Object,
   },
 });
-console.log(listAspirations);
 </script>

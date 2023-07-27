@@ -1,53 +1,34 @@
 <script setup>
+import { ref, onMounted } from "vue";
+
+const listAspirations = ref(null);
+
+async function fetchData() {
+  try {
+    const { data, error } = await useFetch(
+      "http://localhost:6969/aspirations",
+      {
+        method: "GET",
+      }
+    );
+
+    listAspirations.value = data.value.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+onMounted(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  await fetchData();
+});
+
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
     navigateAuthenticatedTo: "/user",
   },
 });
-const listAspirations = ref([]);
-const loading = ref(true);
-
-async function listAspiration() {
-  const { data, error } = await useFetch("http://localhost:6969/aspirations", {
-    method: "GET",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-  });
-
-  listAspirations.value = data.value.data;
-}
-
-onMounted(() => {
-  setTimeout(() => {
-    listAspiration();
-  }, 100);
-});
-
-console.log(listAspirations[0]);
-
-// onMounted(async () => {
-//   try {
-//     const { data, error } = await useFetch(
-//       "http://localhost:6969/aspirations",
-//       {
-//         method: "GET",
-//       }
-//     );
-
-//     if (data && data.value && data.value.data && data.value.data.length > 0) {
-//       listAspirations.value = data.value.data;
-//     } else {
-//       console.error("No data found");
-//     }
-
-//     loading.value = false;
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     loading.value = false;
-//   }
-// });
 </script>
 
 <template>
@@ -78,17 +59,13 @@ console.log(listAspirations[0]);
             Nulla et elit dignissim, egestas dolor et, eleifend orci.
           </p>
         </div>
-        <div>
-          <!-- <p v-if="loading">Loading...</p> -->
-          <p>Data ID: {{ listAspirations[0] }}</p>
-        </div>
         <div
           class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0"
         >
           <GuestAspCard
-            v-for="aspiration in listAspirations"
-            :listAspirations="aspiration"
-            :key="aspiration.id"
+            v-for="item of listAspirations"
+            :listAspirations="item"
+            :key="item.id"
           />
         </div>
       </div>
