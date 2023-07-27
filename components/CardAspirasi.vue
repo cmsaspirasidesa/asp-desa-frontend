@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="max-w-[350px] p-6 mx-auto border border-solid border-gray-300 rounded-[12px]"
-  >
-    <div :key="aspirations.id" class="relative group">
+  <div class="max-w-[280px] p-6 mx-auto mb-3 border border-solid border-gray-300 rounded-[12px]">
+    <div :key="aspirasi.id" class="group relative">
       <div class="h-[250px] overflow-hidden rounded-md group-hover:opacity-75">
         <img
           :src="aspirations.imageSrc"

@@ -35,7 +35,6 @@ function onDrop(e) {
   e.preventDefault();
   const files = e.dataTransfer.files;
   createImage(files);
-  createImage(files);
 }
 
 function onFileChange(e) {

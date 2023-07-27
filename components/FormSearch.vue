@@ -6,7 +6,6 @@ const search = ref("");
 
 <template>
   <form
-    class="px-6 sm:px-4 md:px-5 lg:px-16 xl:px-10 mt-10"
     @submit.prevent="submit"
   >
     <div class="relative w-full flex flex-row">

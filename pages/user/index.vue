@@ -1,34 +1,40 @@
 <script setup>
-const listAspirations = ref(null);
-const loading = ref(true);
-
-const headers = useRequestHeaders(["cookie"]);
-const { data: token } = await useFetch("/api/token", { headers });
-const access = token.value;
-
-console.log(access);
-
-onMounted(async () => {
-  try {
-    const { data, error } = await useFetch(
-      `http://localhost:6969/aspirations/${access.id}`,
-      {
-        method: "GET",
-      }
-    );
-
-    if (data && data.value && data.value.data && data.value.data.length > 0) {
-      listAspirations.value = data.value.data;
-    } else {
-      console.error("No data found");
-    }
-
-    loading.value = false;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    loading.value = false;
-  }
-});
+import Masjid from "../../assets/image/Masjid1.jpg";
+import Masjid2 from "../../assets/image/Masjid2.jpg";
+const aspirations = [
+  {
+    id: 1,
+    subject: "Bangun Masjid",
+    imageSrc: Masjid,
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
+  },
+  {
+    id: 1,
+    subject: "Bangun Masjid",
+    imageSrc: Masjid2,
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
+  },
+  {
+    id: 1,
+    subject: "Bangun Masjid",
+    imageSrc: Masjid,
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
+  },
+  {
+    id: 1,
+    subject: "Bangun Masjid",
+    imageSrc: Masjid2,
+    status: "Proses",
+    description:
+      "lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe",
+  },
+];
 
 definePageMeta({
   layout: "user",
@@ -43,8 +49,8 @@ definePageMeta({
       <FormSeacrh />
       <NuxtLink to="/detail-aspirasi" class="flex flex-wrap my-6 gap-y-6">
         <CardAspirasi
-          v-for="item in listAspirations"
-          :listAspirations="item"
+          v-for="item of aspirations"
+          :aspirations="item"
           :key="item.id"
         />
       </NuxtLink>
