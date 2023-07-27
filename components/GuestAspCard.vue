@@ -3,17 +3,19 @@
     class="max-w-[350px] p-6 mx-auto border border-solid border-gray-300 rounded-[12px]"
   >
     <div :key="listAspirations.id" class="relative group">
-      <div class="h-[250px] overflow-hidden rounded-md group-hover:opacity-75">
-        <!-- <img
-          :src="listAspirations.Images[0].id"
-          alt="Gambar Aspirasi"
+      <div
+        class="h-[250px] overflow-hidden rounded-md group-hover:opacity-75"
+        v-for="(image, index) in listAspirations.Images"
+        :key="image.url"
+        v-show="index === 0"
+      >
+        <img
+          :src="image.url"
+          alt="Aspiration Image"
           class="object-cover object-center w-full h-full"
-        /> -->
-        <nuxt-picture
-          src="http://localhost:6969/1690385898030-image 8.png"
-          alt="Gambar Aspirasi"
         />
       </div>
+
       <div class="flex justify-between mt-4">
         <div>
           <h3 class="text-lg font-medium text-gray-700">
