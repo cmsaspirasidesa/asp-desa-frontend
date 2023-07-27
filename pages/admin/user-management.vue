@@ -3,6 +3,22 @@ definePageMeta({
   layout: 'admin',
   middleware: ['user'],
 });
+const listUser = ref([])
+async function getUsers() {
+  const {data, error, status} = await useFetch('http://localhost:6969/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjkwNDI4OTY4LCJleHAiOjE2OTA0NzIxNjh9.kJ7QiuEabF8QUWfTzAUuNP_pTMrOyXUSKs20Psa1-t4'
+    }
+  })
+  listUser.value = data.value.data
+}
+onMounted(() => {
+  setTimeout(() => {
+    getUsers()
+  }, 100);
+})
 </script>
 
 <template>
@@ -97,7 +113,8 @@ definePageMeta({
         </div>
       </div>
       <div>
-        <UserTable />
+        <button @click="getUsers">Get</button>
+        <UserTable :users="listUser" />
       </div>
     </div>
     <PaginationBlock />

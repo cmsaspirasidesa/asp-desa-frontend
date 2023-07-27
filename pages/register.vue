@@ -36,8 +36,6 @@ async function register() {
     },
     body: JSON.stringify(formData)
   })
-  console.log(error.value)
-  console.log(data.value)
   if (data.value) {
     router.push({path: '/login'})
   }
