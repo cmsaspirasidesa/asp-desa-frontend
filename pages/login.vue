@@ -67,7 +67,6 @@ definePageMeta({
           Daftar
         </NuxtLink>
       </p>
-      <p>{{ token }}</p>
     </div>
   </div>
 </template>

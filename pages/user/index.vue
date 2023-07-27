@@ -1,43 +1,44 @@
 <script setup>
 import Masjid from '../../assets/image/Masjid1.jpg';
 import Masjid2 from '../../assets/image/Masjid2.jpg';
-const aspirasi = [
+const aspirations = [
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: 'Bangun Masjid',
     imageSrc: Masjid,
     status: 'Proses',
-    deskripsi:
+    description:
       'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: 'Bangun Masjid',
     imageSrc: Masjid2,
     status: 'Proses',
-    deskripsi:
+    description:
       'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: 'Bangun Masjid',
     imageSrc: Masjid,
     status: 'Proses',
-    deskripsi:
+    description:
       'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
   },
   {
     id: 1,
-    judul: 'Bangun Masjid',
+    subject: 'Bangun Masjid',
     imageSrc: Masjid2,
     status: 'Proses',
-    deskripsi:
+    description:
       'lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe lorem ipsum dolor smit are nawa kombe',
   },
 ];
 
 definePageMeta({
   layout: 'user',
+  middleware: ['admin']
 });
 </script>
 

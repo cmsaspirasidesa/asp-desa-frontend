@@ -167,11 +167,8 @@ const addAspiration = async (inputData) => {
           </p>
         </div>
       </div>
-      <div
-        class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
-        @drop="onDrop"
-        @dragover="onOver"
-      >
+      <div class="flex justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25" @drop="onDrop"
+        @dragover="onOver">
         <div class="text-center">
           <Icon
             name="heroicons-solid:photo"
