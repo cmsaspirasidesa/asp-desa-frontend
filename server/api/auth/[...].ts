@@ -8,7 +8,6 @@ export default NuxtAuthHandler({
   secret: 'Rahasia',
   callbacks: {
     jwt: async ({ token, user }) => {
-      // console.log(user)
       const isSignIn = user ? true : false;
       if (isSignIn) {
         token.jwt = user ? (user as any).access_token || '' : '';
@@ -40,7 +39,6 @@ export default NuxtAuthHandler({
           body: JSON.stringify(data)
         })
         const user = await res.json()
-        // console.log(user)
         if (user.data.id) {
           const u = {
             id: user.data.id,

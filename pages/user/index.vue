@@ -38,7 +38,7 @@ const aspirations = [
 
 definePageMeta({
   layout: "user",
-  middleware: ["admin"],
+  middleware: ['admin'],
 });
 </script>
 
@@ -48,11 +48,7 @@ definePageMeta({
     <div>
       <FormSeacrh />
       <NuxtLink to="/detail-aspirasi" class="flex flex-wrap my-6 gap-y-6">
-        <CardAspirasi
-          v-for="item of aspirations"
-          :aspirations="item"
-          :key="item.id"
-        />
+        <CardAspirasi v-for="item of aspirations" :aspirations="item" :key="item.id" />
       </NuxtLink>
     </div>
   </div>

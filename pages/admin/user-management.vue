@@ -3,13 +3,25 @@ definePageMeta({
   layout: 'admin',
   middleware: ['user'],
 });
+import * as jose from 'jose'
+const headers = useRequestHeaders(['cookie']);
+const {data: token} = await useFetch('/api/token', {headers});
+const {signOut} = useAuth()
+const dataToken = jose.decodeJwt(token.value.jwt)
+
+onBeforeMount(() => {
+  if (dataToken.exp < Date.now() / 1000) {
+    signOut()
+  }
+})
+
 const listUser = ref([])
 async function getUsers() {
-  const {data, error, status} = await useFetch('http://localhost:6969/users', {
+  const {data} = await useFetch('http://localhost:6969/users', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjkwNDI4OTY4LCJleHAiOjE2OTA0NzIxNjh9.kJ7QiuEabF8QUWfTzAUuNP_pTMrOyXUSKs20Psa1-t4'
+      'authorization': token.value.jwt,
     }
   })
   listUser.value = data.value.data
@@ -19,6 +31,8 @@ onMounted(() => {
     getUsers()
   }, 100);
 })
+
+console.log('user', token.value.jwt)
 </script>
 
 <template>
@@ -44,7 +58,6 @@ onMounted(() => {
                 d="m1 1 4 4 4-4" />
             </svg>
           </button>
-          <!-- Dropdown menu -->
           <div id="dropdownRadio"
             class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
             data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="
@@ -113,8 +126,43 @@ onMounted(() => {
         </div>
       </div>
       <div>
-        <button @click="getUsers">Get</button>
-        <UserTable :users="listUser" />
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="p-4">
+                <span class="text-lg">No</span>
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Nama
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" class="px-6 py-3">
+                NIK
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(user, index) of listUser" :key="user.id"
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="w-4 p-4">
+                <span class="font-semibold text-black">{{ index + 1 }}</span>
+              </td>
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ user.nama }}
+              </th>
+              <td class="px-6 py-4">{{ user.email }}</td>
+              <td class="px-6 py-4">{{ user.nik }}</td>
+              <td class="w-[100px] bg-green-500 flex justify-center gap-1">
+                <ModalUpdateUser :modal="index" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <PaginationBlock />

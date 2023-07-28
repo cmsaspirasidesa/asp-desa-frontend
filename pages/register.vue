@@ -18,7 +18,6 @@ definePageMeta({
 
 function togglePassword() {
   showPassword.value = !showPassword.value
-  console.log(showPassword)
 }
 
 async function register() {

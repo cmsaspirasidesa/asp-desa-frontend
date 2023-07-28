@@ -3,6 +3,59 @@ definePageMeta({
   layout: 'admin',
   middleware: ['user'],
 });
+import * as jose from 'jose'
+const headers = useRequestHeaders(['cookie']);
+const {data: token} = await useFetch('/api/token', {headers});
+const {signOut} = useAuth()
+const dataToken = jose.decodeJwt(token.value.jwt)
+
+onBeforeMount(() => {
+  if (dataToken.exp < Date.now() / 1000) {
+    signOut()
+  }
+})
+
+const listAspirations = ref([]);
+async function getAspirations() {
+  const {data} = await useFetch('http://localhost:6969/aspirations', {
+    method: 'GET',
+  })
+  listAspirations.value = data.value.data
+}
+
+onMounted(() => {
+  setTimeout(() => {
+    getAspirations()
+  }, 100);
+})
+
+import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue'
+const open = ref(false)
+const aspirationId = ref()
+const aspirationStatus = ref('')
+function openModal(id, status) {
+  aspirationId.value = id
+  if (status === 'Submitted') {
+    aspirationStatus.value = 'Processed'
+  } else {
+    aspirationStatus.value = 'Done'
+  }
+  open.value = true
+}
+async function changeStatus() {
+  await useFetch(`http://localhost:6969/aspirations/${aspirationId.value}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': token.value.jwt,
+    },
+    body: {
+      'status': aspirationStatus.value
+    },
+  })
+  open.value = false
+}
+
 </script>
 
 <template>
@@ -100,116 +153,100 @@ definePageMeta({
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="p-4">
-              <span class="text-lg">#</span>
+              <span class="text-base text-center">No</span>
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3 text-base text-center">
               Nama User
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3 text-base text-center">
               Judul
             </th>
-            <th scope="col" class="px-6 py-3">
-              Alamat
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Deskripsi
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Lokasi
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Komentar
-            </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3 text-base text-center">
               Status
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="px-6 py-3 text-base text-center">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">1</span>
+          <tr v-for="(aspiration, index) of listAspirations"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="w-4 p-4 m-auto">
+              <span class="font-semibold text-black">{{ index + 1 }}</span>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-          </tr>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">2</span>
+            <td class="px-6 py-4 text-lg">{{ aspiration.nama }}</td>
+            <td class="px-6 py-4 text-lg">{{ aspiration.judul }}</td>
+            <td v-if="aspiration.status === 'Submitted'" class="flex py-4">
+              <p class="px-4 py-2 text-blue-500 uppercase border border-solid border-blue-500 w-[105px]">{{
+                aspiration.status }}</p>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-
-          </tr>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">3</span>
+            <td v-else-if="aspiration.status === 'Processed'" class="flex py-4">
+              <p class="px-4 py-2 text-orange-500 uppercase border border-solid border-orange-500 w-[105px]">{{
+                aspiration.status }}</p>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-
-          </tr>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">4</span>
+            <td v-else class="flex py-4">
+              <p class="px-4 py-2 uppercase text-green-500 border border-solid border-green-500 w-[105px] text-center">{{
+                aspiration.status }}</p>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-
-          </tr>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">5</span>
+            <td class="px-6 py-4">
+              <button v-if="aspiration.status === 'Submitted'" type="button"
+                class="py-2 px-4 w-[80px] bg-orange-500 text-white rounded-md text-center"
+                @click="openModal(aspiration.id, aspiration.status)">Process</button>
+              <button v-else-if="aspiration.status === 'Processed'" type="button"
+                class="py-2 px-4 bg-green-500 w-[80px] text-center text-white rounded-md"
+                @click="openModal(aspiration.id, aspiration.status)">Done</button>
+              <button v-else class="hidden"></button>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-
           </tr>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <span class="font-semibold text-black">6</span>
-            </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-            </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-
-          </tr>
-
-
-
         </tbody>
       </table>
+      <TransitionRoot class="z-50" as="template" :show="open">
+        <Dialog as="div" class="relative z-10" @close="open = false">
+          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
+            leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </TransitionChild>
+
+          <div class="fixed inset-0 z-[60] overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <TransitionChild as="template" enter="ease-out duration-300"
+                enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200"
+                leave-from="opacity-100 translate-y-0 sm:scale-100"
+                leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                <DialogPanel
+                  class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                      <!-- <div
+                        class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"> -->
+                      <!-- <ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" /> -->
+                      <!-- </div> -->
+                      <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Ganti status
+                        </DialogTitle>
+                        <div class="mt-2">
+                          <p class="text-sm text-gray-500">Apakah anda yakin mau mengganti status aspirasi menjadi process
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button"
+                      class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                      @click="changeStatus">Oke</button>
+                    <button type="button"
+                      class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      @click="open = false" ref="cancelButtonRef">Batal</button>
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </Dialog>
+      </TransitionRoot>
     </div>
     <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing
