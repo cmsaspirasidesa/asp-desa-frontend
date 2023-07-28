@@ -1,13 +1,21 @@
 <script setup>
 const listAspirations = ref(null);
+const aspirationId = ref("");
 
 const headers = useRequestHeaders(["cookie"]);
 const { data: token } = await useFetch("/api/token", { headers });
 const jwtToken = token.value.jwt;
 
+console.log("ini token", token.value);
+
+console.log("ini access user: ", jwtToken);
+
+const route = useRoute();
+
 async function fetchData() {
   try {
-    const url = `http://localhost:6969/useraspirations/`;
+    // const url = `http://localhost:6969/aspirations/${aspirationId}`;
+    const url = `http://localhost:6969/aspirations/${route.params.id}`;
     const { data, error } = await useFetch(url, {
       method: "GET",
       headers: {
@@ -28,23 +36,20 @@ onMounted(async () => {
 
 definePageMeta({
   layout: "user",
-  middleware: ["admin"],
 });
 </script>
 
 <template>
-  <div class="flex flex-col max-w-screen-xl gap-8 md:flex-row lg:mx-8">
-    <FormAspirasi @user-adds-asp="handleUserAddsAsp" />
-    <div>
-      <FormSearch />
-      <div class="flex flex-wrap my-6 gap-y-6">
-        <CardAspirasi
-          v-for="(aspiration, index) of listAspirations"
-          :key="aspiration.id"
-          :aspirationUser="listAspirations[index]"
-          :aspirationId="listAspirations[index].id"
-        />
-      </div>
+  <div>
+    <div class="relative flex flex-col items-center md:flex-col xl:flex-row">
+      <NuxtLink to="/user" class="flex flex-wrap my-6 gap-y-6">
+        <BackButton class="absolute top-16 left-2" />
+      </NuxtLink>
+      <Carousel
+        :aspirationUser="listAspirations"
+        :aspirationId="listAspirations"
+      />
+      <DetailAspirasiContent :contentAspiration="listAspirations" />
     </div>
   </div>
 </template>

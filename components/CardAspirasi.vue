@@ -3,6 +3,7 @@
     <div
       class="w-[350px] p-6 mx-5 border border-solid border-gray-300 rounded-[12px]"
     >
+      {{ aspirationId }}
       <div :key="aspirationUser.id" class="relative group">
         <div
           class="overflow-hidden rounded-md group-hover:opacity-75"
@@ -37,7 +38,7 @@
             >Detail</a
           > -->
           <NuxtLink
-            to="detail-aspirasi"
+            :to="'/detail-aspirasi/' + aspirationId"
             class="px-4 py-2 text-white bg-indigo-600 rounded-md"
           >
             Detail
@@ -53,5 +54,6 @@ defineProps({
   aspirationUser: {
     type: Object,
   },
+  aspirationId: String,
 });
 </script>

@@ -31,6 +31,10 @@ definePageMeta({
     navigateAuthenticatedTo: "/user",
   },
 });
+
+defineProps({
+  aspirationId: String,
+});
 </script>
 
 <template>
