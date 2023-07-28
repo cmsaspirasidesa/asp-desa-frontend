@@ -58,10 +58,6 @@ const formData = ref({
   description: '',
 });
 
-const headers = useRequestHeaders(['cookie']);
-const { data: token } = await useFetch('/api/token', { headers });
-const accessToken = token.value;
-
 const addAspiration = async (inputData) => {
   const formData = new FormData();
   imageFiles.forEach((image) => {
@@ -77,9 +73,6 @@ const addAspiration = async (inputData) => {
   try {
     const response = await useFetch('http://localhost:6969/aspirations/guest', {
       method: 'POST',
-      headers: {
-        authorization: accessToken.jwt,
-      },
       body: formData,
     });
 
