@@ -1,5 +1,13 @@
 <script setup>
 import image from "../assets/image/no-image-available.png";
+
+defineProps({
+  aspirationUser: {
+    type: Object,
+  },
+
+  aspirationId: String,
+});
 </script>
 
 <template>
@@ -8,12 +16,14 @@ import image from "../assets/image/no-image-available.png";
     class="relative w-full lg:bg-gray-300 xl:mx-5"
     data-carousel="slide"
   >
+    <!-- {{ aspirationUser }} -->
+    <!-- {{ aspirationUser.Images }} -->
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden md:h-96 lg:min-w-screen">
+    <div class="relative h-56 overflow-hidden md:h-96 lg:min-w-screen" >
       <!-- Item 1 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          :src="image"
+          :src="image.url"
           class="absolute block h-auto max-w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt=""
         />
@@ -21,7 +31,7 @@ import image from "../assets/image/no-image-available.png";
       <!-- Item 2 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
         <img
-          :src="image"
+          :src="image.url"
           class="absolute block h-auto max-w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt=""
         />
@@ -29,7 +39,7 @@ import image from "../assets/image/no-image-available.png";
       <!-- Item 3 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          :src="image"
+          :src="image.url"
           class="absolute block h-auto max-w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt=""
         />
@@ -37,7 +47,7 @@ import image from "../assets/image/no-image-available.png";
       <!-- Item 4 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          :src="image"
+          :src="image.url"
           class="absolute block h-auto max-w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt=""
         />
@@ -45,7 +55,7 @@ import image from "../assets/image/no-image-available.png";
       <!-- Item 5 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          :src="image"
+          :src="image.url"
           class="absolute block h-auto max-w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt=""
         />

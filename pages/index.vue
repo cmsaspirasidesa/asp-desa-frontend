@@ -1,25 +1,40 @@
 <script setup>
+import {ref, onMounted} from "vue";
+
+const listAspirations = ref(null);
+
+async function fetchData() {
+  try {
+    const {data, error} = await useFetch(
+      "http://localhost:6969/aspirations",
+      {
+        method: "GET",
+      }
+    );
+
+    listAspirations.value = data.value.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+console.log(listAspirations);
+
+onMounted(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  await fetchData();
+});
+
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
     navigateAuthenticatedTo: "/user",
   },
 });
-const listAspirations = ref([]);
-async function getAspirations() {
-  const {data} = await useFetch('http://localhost:6969/aspirations', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  listAspirations.value = data.value.data
-}
-onMounted(() => {
-  setTimeout(() => {
-    getAspirations()
-  }, 100);
-})
+
+defineProps({
+  aspirationId: String,
+});
 </script>
 
 <template>
