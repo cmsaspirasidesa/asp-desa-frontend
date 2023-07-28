@@ -18,12 +18,12 @@
 
       <div class="flex justify-between mt-4">
         <div>
-          <h3 class="text-lg font-medium text-gray-700">
+          <h3 class="mr-2 text-lg font-medium text-gray-700">
             {{ listAspirations.judul }}
           </h3>
         </div>
         <p
-          class="px-2 py-1 text-sm font-medium text-gray-900 border border-gray-300 border-solid rounded-md"
+          class="px-2 py-1 text-sm font-medium text-center text-gray-900 border border-gray-300 border-solid rounded-md"
         >
           {{ listAspirations.status }}
         </p>
