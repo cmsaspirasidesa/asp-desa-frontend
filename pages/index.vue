@@ -1,26 +1,17 @@
 <script setup>
-import {ref, onMounted} from "vue";
+const listAspirations = ref([]);
 
-const listAspirations = ref(null);
-
-async function fetchData() {
-  try {
-    const {data, error} = await useFetch(
-      "http://localhost:6969/aspirations",
-      {
-        method: "GET",
-      }
-    );
-
-    listAspirations.value = data.value.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+async function getAspirations() {
+  const {data} = await useFetch("http://localhost:6969/aspirations", {
+    method: "GET",
+  })
+  listAspirations.value = data.value.data;
 }
 
 onMounted(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  await fetchData();
+  setTimeout(() => {
+    getAspirations()
+  }, 100);
 });
 
 definePageMeta({
@@ -29,74 +20,60 @@ definePageMeta({
     navigateAuthenticatedTo: "/user",
   },
 });
-
-defineProps({
-  aspirationId: String,
-});
 </script>
 
 <template>
-  <div>
-    <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
-      <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
-        <div class="w-full lg:max-w-2xl">
-          <FormAspirasi />
-        </div>
-        <div class="hidden lg:flex lg:flex-col">
-          <GuestRegisCard />
-        </div>
+  <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
+    <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
+      <div class="w-full lg:max-w-2xl">
+        <FormAspirasi />
       </div>
-    </section>
+      <div class="hidden lg:flex lg:flex-col">
+        <GuestRegisCard />
+      </div>
+    </div>
+  </section>
 
-    <section id="aspirasi-section" class="bg-gray-50 dark:bg-gray-800">
-      <div class="max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6">
-        <div class="max-w-screen-md mb-4">
-          <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-            Daftar Aspirasi
-          </h2>
-          <p class="text-gray-500 sm:text-xl dark:text-gray-400">
-            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas.
-            Nulla et elit dignissim, egestas dolor et, eleifend orci.
-          </p>
-        </div>
-        <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:space-y-0">
-          <GuestAspCard v-for="item of listAspirations" :listAspirations="item" :key="item.id" />
-        </div>
-      </div>
-    </section>
+  <section id="aspirasi-section" class="bg-gray-50 py-14">
+    <h2 class="mb-8 text-4xl font-extrabold text-gray-900 text-center">
+      Daftar Aspirasi
+    </h2>
+    <div class="flex gap-10 justify-center flex-wrap">
+      <div v-for="aspiration of listAspirations" :key="aspiration.id"
+        class="w-[350px] p-6 border border-solid border-gray-300 rounded-[12px]">
+        <div class="group">
+          <div class="overflow-hidden rounded-md group-hover:opacity-75 h-[300px] bg-slate-400">
+            <div v-if="aspiration.Images.length <= 0" class="flex justify-center items-center h-full w-full flex-col">
+              <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
+              <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
+            </div>
+            <img v-else :src="aspiration.Images[0].url" alt="Aspiration Image"
+              class="object-cover object-center w-full h-full" />
+          </div>
 
-    <section class="bg-gray-50 dark:bg-gray-900">
-      <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
-        <div class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
-          <h2 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-            Lorem ipsum dolor
-            <span class="font-extrabold">200,000+</span> laoreet vehicula
-          </h2>
-          <p class="mb-4 font-light">
-            Vestibulum consectetur lacinia eleifend. Nulla eget nisl
-            condimentum, malesuada orci ut, rutrum elit. Praesent tincidunt
-            sodales velit ut pretium. Nunc eget enim at sem congue egestas non
-            sed sapien. Mauris lobortis sollicitudin orci sed pellentesque.
-            Vestibulum pharetra urna eu orci tempor ornare. Nullam laoreet
-            lacinia purus, sit amet lacinia tortor suscipit at. Cras id
-            vestibulum velit, eu tincidunt massa.
-          </p>
-          <p class="mb-4 font-medium">
-            Ut bibendum viverra iaculis. Integer malesuada a nulla ac egestas.
-            Nulla et elit dignissim, egestas dolor et, eleifend orci. Mauris
-            convallis lobortis risus, a vehicula odio bibendum non.
-          </p>
-          <NuxtLink to="/"
-            class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
-            Learn more
-            <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </NuxtLink>
+          <div class="flex justify-between mt-4">
+            <div>
+              <h3 class="mr-2 text-lg font-medium text-gray-700 line-clamp-1">
+                {{ aspiration.judul }}
+              </h3>
+            </div>
+            <p
+              class="px-2 py-1 text-sm font-medium text-center text-gray-900 border border-gray-300 border-solid rounded-md">
+              {{ aspiration.status }}
+            </p>
+          </div>
+          <div class="h-[80px]">
+            <p class="mt-3 text-sm text-justify text-gray-500 line-clamp-4">
+              {{ aspiration.deskripsi }}
+            </p>
+          </div>
+          <div class="mt-5">
+            <NuxtLink :to="'/detail-aspirasi/' + aspiration.id" class="px-4 py-2 text-white bg-indigo-600 rounded-md">
+              Detail
+            </NuxtLink>
+          </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
