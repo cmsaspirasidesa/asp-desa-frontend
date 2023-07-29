@@ -30,5 +30,4 @@ const access = token.value
 const waktu = Date.now()
 const exp = token.value.exp * 1000
 const claims = jose.decodeJwt(token.value.jwt)
-console.log(claims)
 </script>

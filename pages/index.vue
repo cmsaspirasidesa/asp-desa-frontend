@@ -18,8 +18,6 @@ async function fetchData() {
   }
 }
 
-console.log(listAspirations);
-
 onMounted(async () => {
   await new Promise((resolve) => setTimeout(resolve, 100));
   await fetchData();

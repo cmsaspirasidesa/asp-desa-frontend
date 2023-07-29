@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="w-[350px] p-6 mx-5 border border-solid border-gray-300 rounded-[12px]">
-      {{ aspirationId }}
       <div :key="aspirationUser.id" class="relative group">
         <div class="overflow-hidden rounded-md group-hover:opacity-75" v-for="(image, index) in aspirationUser.Images"
           :key="image.url" v-show="index === 1">

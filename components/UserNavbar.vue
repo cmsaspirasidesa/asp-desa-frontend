@@ -279,7 +279,7 @@ import desa from '../assets/image/Desa.png'
                   class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Profil</a>
               </li>
             </ul>
-            <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
+            <ul class="py-1 text-gray-700 dark:text-gray-300 cursor-pointer" aria-labelledby="dropdown">
               <li @click="signOut()"
                 class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Keluar

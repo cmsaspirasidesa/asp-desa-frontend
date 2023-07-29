@@ -1,14 +1,10 @@
 <script setup>
-const listAspirations = ref(null);
+const listAspirations = reactive({});
 const aspirationId = ref("");
 
 const headers = useRequestHeaders(["cookie"]);
-const { data: token } = await useFetch("/api/token", { headers });
+const {data: token} = await useFetch("/api/token", {headers});
 const jwtToken = token.value.jwt;
-
-console.log("ini token", token.value);
-
-console.log("ini access user: ", jwtToken);
 
 const route = useRoute();
 
@@ -16,7 +12,7 @@ async function fetchData() {
   try {
     // const url = `http://localhost:6969/aspirations/${aspirationId}`;
     const url = `http://localhost:6969/aspirations/${route.params.id}`;
-    const { data, error } = await useFetch(url, {
+    const {data, error} = await useFetch(url, {
       method: "GET",
       headers: {
         Authorization: jwtToken,
@@ -24,6 +20,7 @@ async function fetchData() {
     });
 
     listAspirations.value = data.value.data;
+    console.log(data)
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -45,11 +42,7 @@ definePageMeta({
       <NuxtLink to="/user" class="flex flex-wrap my-6 gap-y-6">
         <BackButton class="absolute top-16 left-2" />
       </NuxtLink>
-      <Carousel
-        :aspirationUser="listAspirations"
-        :aspirationId="listAspirations"
-      />
-      <DetailAspirasiContent :contentAspiration="listAspirations" />
+      <DetailAspirasiContent v-for="aspirasi of listAspirations" :contentAspiration="aspirasi" />
     </div>
   </div>
 </template>

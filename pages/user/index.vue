@@ -1,14 +1,22 @@
 <script setup>
-const listAspirations = ref(null);
+import * as jose from 'jose'
+const headers = useRequestHeaders(['cookie']);
+const {data: token} = await useFetch('/api/token', {headers});
+const {signOut} = useAuth()
+const dataToken = jose.decodeJwt(token.value.jwt)
 
-const headers = useRequestHeaders(["cookie"]);
-const {data: token} = await useFetch("/api/token", {headers});
+onBeforeMount(() => {
+  if (dataToken.exp < Date.now() / 1000) {
+    signOut()
+  }
+})
+const listAspirations = ref(null);
 const jwtToken = token.value.jwt;
 
 async function fetchData() {
   try {
     const url = `http://localhost:6969/useraspirations/`;
-    const {data, error} = await useFetch(url, {
+    const {data} = await useFetch(url, {
       method: "GET",
       headers: {
         Authorization: jwtToken,
@@ -34,7 +42,7 @@ definePageMeta({
 
 <template>
   <div class="flex flex-col max-w-screen-xl gap-8 md:flex-row lg:mx-8">
-    <FormAspirasi @user-adds-asp="handleUserAddsAsp" />
+    <FormAspirasiUser @user-adds-asp="handleUserAddsAsp" />
     <div>
       <FormSearch />
       <div class="flex flex-wrap my-6 gap-y-6">
