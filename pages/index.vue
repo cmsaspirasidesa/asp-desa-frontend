@@ -5,7 +5,7 @@ async function getAspirations() {
   const {data} = await useFetch("http://localhost:8000/aspirations", {
     method: "GET",
   })
-  listAspirations.value = data.value.data;
+  listAspirations.value = data.value.data.data;
 }
 
 onMounted(async () => {

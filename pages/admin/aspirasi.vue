@@ -8,6 +8,7 @@ const headers = useRequestHeaders(['cookie']);
 const {data: token} = await useFetch('/api/token', {headers});
 const {signOut} = useAuth()
 const dataToken = jose.decodeJwt(token.value.jwt)
+const refreshData = ref(0)
 
 onBeforeMount(() => {
   if (dataToken.exp < Date.now() / 1000) {
@@ -15,18 +16,9 @@ onBeforeMount(() => {
   }
 })
 
-const listAspirations = ref([]);
-async function getAspirations() {
-  const {data} = await useFetch('http://localhost:8000/aspirations', {
-    method: 'GET',
-  })
-  listAspirations.value = data.value.data
-}
-
-onMounted(() => {
-  setTimeout(() => {
-    getAspirations()
-  }, 100);
+const {data: listAspirations} = await useFetch('http://localhost:8000/aspirations', {
+  method: 'GET',
+  watch: [refreshData]
 })
 
 import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue'
@@ -78,6 +70,7 @@ async function changeStatus() {
   aspirationId.value = null
   comment.value = null
   open.value = false
+  refreshData.value++
 }
 </script>
 
@@ -124,7 +117,7 @@ async function changeStatus() {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(aspiration, index) of listAspirations"
+          <tr v-for="(aspiration, index) of listAspirations.data.data"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4 m-auto">
               <span class="font-semibold text-black">{{ index + 1 }}</span>
@@ -145,10 +138,10 @@ async function changeStatus() {
             </td>
             <td class="px-6 py-4">
               <button v-if="aspiration.status === 'Submitted'" type="button"
-                class="py-2 px-4 w-[80px] bg-orange-500 text-white rounded-md text-center"
+                class="py-2 px-4 w-[80px] bg-slate-500 text-white rounded-md text-center"
                 @click="openModal(aspiration.id, aspiration.status)">Process</button>
               <button v-else-if="aspiration.status === 'Processed'" type="button"
-                class="py-2 px-4 bg-green-500 w-[80px] text-center text-white rounded-md"
+                class="py-2 px-4 w-[80px] bg-slate-500 text-white text-center rounded-md"
                 @click="openModal(aspiration.id, aspiration.status)">Done</button>
               <button v-else class="hidden"></button>
             </td>

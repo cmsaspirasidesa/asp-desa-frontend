@@ -1,6 +1,10 @@
+<script setup>
+const {status} = useAuth()
+</script>
+
 <template>
   <div>
-    <UserNavbar />
+    <UserNavbar v-if="status === 'authenticated'" />
     <slot />
   </div>
 </template>
