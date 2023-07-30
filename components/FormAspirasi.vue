@@ -8,6 +8,9 @@ function createImage(files) {
   batas.value = false;
   notImage.value = false;
   if (files[0].type.split('/')[0] === 'image') {
+    for (let file of files) {
+      imageFiles.push(file);
+    }
     for (let index = 0; index < files.length; index++) {
       let reader = new FileReader();
       reader.onload = function (event) {
@@ -36,13 +39,11 @@ function onDrop(e) {
   e.preventDefault();
   const files = e.dataTransfer.files;
   createImage(files);
-  imageFiles.push(files);
 }
 
 function onFileChange(e) {
   const files = e.target.files;
   createImage(files);
-  imageFiles.push(files);
 }
 
 function removeImage(index) {
@@ -61,7 +62,7 @@ const formData = ref({
 const addAspiration = async (inputData) => {
   const formData = new FormData();
   imageFiles.forEach((image) => {
-    formData.append('images', image[0]);
+    formData.append('images', image);
   });
 
   formData.append('judul', inputData.title);
