@@ -2,7 +2,6 @@
   <div>
     <GuestNavbar />
     <slot />
-    <GuestFooter />
   </div>
 </template>
 
