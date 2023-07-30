@@ -2,7 +2,7 @@
 const listAspirations = ref([]);
 
 async function getAspirations() {
-  const {data} = await useFetch("http://localhost:6969/aspirations", {
+  const {data} = await useFetch("http://localhost:8000/aspirations", {
     method: "GET",
   })
   listAspirations.value = data.value.data;
