@@ -54,7 +54,6 @@ function toggleManajemen() {
         Settings page
         <div class="tooltip-arrow" data-popper-arrow></div>
       </div>
-      <!-- Dropdown -->
     </div>
   </aside>
 </template>
