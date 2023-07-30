@@ -51,7 +51,7 @@ definePageMeta({
             <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
             <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
           </div>
-          <el-carousel-item v-else v-for="image of aspiration.Images" :key="image.id">
+          <el-carousel-item v-else v-for="image of aspiration.Images" :key="image.id" class="bg-slate-500">
             <NuxtImg :src="image.url" class="object-cover object-center h-full w-full" />
           </el-carousel-item>
         </div>
