@@ -17,7 +17,7 @@ onBeforeMount(() => {
 
 const listAspirations = ref([]);
 async function getAspirations() {
-  const {data} = await useFetch('http://localhost:6969/aspirations', {
+  const {data} = await useFetch('http://localhost:8000/aspirations', {
     method: 'GET',
   })
   listAspirations.value = data.value.data
@@ -51,7 +51,7 @@ function closeModal() {
 }
 async function changeStatus() {
   if (comment.value) {
-    await useFetch(`http://localhost:6969/aspirations/${aspirationId.value}`, {
+    await useFetch(`http://localhost:8000/aspirations/${aspirationId.value}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ async function changeStatus() {
       },
     })
   } else {
-    await useFetch(`http://localhost:6969/aspirations/${aspirationId.value}`, {
+    await useFetch(`http://localhost:8000/aspirations/${aspirationId.value}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

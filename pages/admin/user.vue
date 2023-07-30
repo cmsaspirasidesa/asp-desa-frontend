@@ -1,13 +1,15 @@
 <script setup>
-definePageMeta({
-  layout: 'admin',
-  middleware: ['user'],
-});
 import * as jose from 'jose';
+
 const headers = useRequestHeaders(['cookie']);
 const { data: token } = await useFetch('/api/token', { headers });
 const { signOut } = useAuth();
 const dataToken = jose.decodeJwt(token.value.jwt);
+
+definePageMeta({
+  layout: 'admin',
+  middleware: ['user'],
+});
 
 onBeforeMount(() => {
   if (dataToken.exp < Date.now() / 1000) {
@@ -18,8 +20,7 @@ onBeforeMount(() => {
 const page = ref(1);
 const pageSize = ref(10);
 const query = ref('');
-const updatedId = ref(handleUpdatedUser);
-const deletedId = ref(handleDeletedUser);
+const updatedId = ref('');
 
 const { data: userList, pending } = await useFetch(
   () =>
@@ -31,16 +32,12 @@ const { data: userList, pending } = await useFetch(
       authorization: token.value.jwt,
     },
     key: `userlist-${page.value}`,
-    watch: [page, query, updatedId, deletedId],
+    watch: [page, query, updatedId],
   }
 );
 
-function handleUpdatedUser(updatedUserId) {
-  return updatedUserId;
-}
-
-function handleDeletedUser(deletedUserId) {
-  return deletedUserId;
+function handleUser(updatedUserId) {
+  updatedId.value = updatedUserId
 }
 </script>
 
@@ -68,6 +65,7 @@ function handleDeletedUser(deletedUserId) {
           </div>
           <input
             v-model="query"
+            @input="() => page = 1"
             type="text"
             id="table-search"
             class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -77,12 +75,9 @@ function handleDeletedUser(deletedUserId) {
       </div>
       <div>
         <UserTable
-          v-if="!pending"
           :users="userList.data"
-          @emitUpdatedUserId="handleUpdatedUser"
-          @emitDeletedUserId="handleDeletedUser"
+          @emitUpdatedUserId="handleUser"
         />
-        <NuxtLoadingIndicator v-if="pending"/>
       </div>
     </div>
     <nav

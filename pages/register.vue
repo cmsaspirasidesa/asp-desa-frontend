@@ -28,7 +28,7 @@ async function register() {
     alamat: alamat.value,
     nik: nik.value,
   }
-  const {data, error} = await useFetch('http://localhost:6969/register', {
+  const {data, error} = await useFetch('http://localhost:8000/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

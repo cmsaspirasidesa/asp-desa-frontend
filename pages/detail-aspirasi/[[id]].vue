@@ -10,8 +10,8 @@ const route = useRoute();
 
 async function fetchData() {
   try {
-    // const url = `http://localhost:6969/aspirations/${aspirationId}`;
-    const url = `http://localhost:6969/aspirations/${route.params.id}`;
+    // const url = `http://localhost:8000/aspirations/${aspirationId}`;
+    const url = `http://localhost:8000/aspirations/${route.params.id}`;
     const {data, error} = await useFetch(url, {
       method: "GET",
       headers: {

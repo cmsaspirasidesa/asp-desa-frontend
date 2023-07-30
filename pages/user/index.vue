@@ -13,7 +13,7 @@ onBeforeMount(() => {
 const listAspirations = ref([]);
 
 async function getUserAspirations() {
-  const {data} = await useFetch('http://localhost:6969/useraspirations/', {
+  const {data} = await useFetch('http://localhost:8000/useraspirations/', {
     method: "GET",
     headers: {
       Authorization: token.value.jwt,

@@ -71,7 +71,7 @@ const addAspiration = async (inputData) => {
   formData.append('lokasi', inputData.location);
 
   try {
-    const response = await useFetch('http://localhost:6969/aspirations', {
+    const response = await useFetch('http://localhost:8000/aspirations', {
       method: 'POST',
       headers: {
         authorization: accessToken.jwt,
