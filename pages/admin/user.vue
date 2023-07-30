@@ -18,6 +18,7 @@ onBeforeMount(() => {
 const page = ref(1);
 const pageSize = ref(10);
 const query = ref('');
+const updatedId = ref('');
 
 const {data: userList} = await useFetch(
   () =>
@@ -29,9 +30,13 @@ const {data: userList} = await useFetch(
       authorization: token.value.jwt,
     },
     key: `userlist-${page.value}`,
-    watch: [page, query],
+    watch: [page, query, updatedId],
   }
 );
+
+function handleUser(updatedUserId) {
+  updatedId.value = updatedUserId
+}
 </script>
 
 <template>
@@ -46,13 +51,13 @@ const {data: userList} = await useFetch(
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <Icon name="ic:round-search" size="20" class="text-gray-500" />
           </div>
-          <input v-model="query" type="text" id="table-search"
+          <input v-model="query" @input="() => page = 1" type="text" id="table-search"
             class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Cari nama, nik, alamat, atau email" />
         </div>
       </div>
       <div>
-        <UserTable :users="userList.data" />
+        <UserTable :users="userList.data" @emitUpdatedUserId="handleUser" />
       </div>
     </div>
     <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
@@ -67,7 +72,7 @@ const {data: userList} = await useFetch(
           </span>
         </span>
       </div>
-      <div>
+      <div v-if="userList.total > pageSize">
         <nav aria-label="pagination">
           <ul class="flex items-center -space-x-px h-8 text-sm">
             <li>

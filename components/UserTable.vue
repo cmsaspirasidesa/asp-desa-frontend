@@ -1,7 +1,13 @@
 <script setup>
-const userData = defineProps({
+const props = defineProps({
   users: Object,
 });
+
+const userData = ref(props.users)
+
+watchEffect(() => {
+  userData.value = props.users
+})
 
 const isShowUpdateModal = ref(false);
 const isShowDeleteModal = ref(false);
@@ -36,6 +42,8 @@ const formData = ref({
   nik: '',
 });
 
+const emits = defineEmits(['emitUpdatedUserId'])
+
 const headers = useRequestHeaders(['cookie']);
 const {data: token} = await useFetch('/api/token', {headers});
 const accessToken = token.value;
@@ -57,6 +65,7 @@ const updateUser = async () => {
       }
     );
 
+    emits('emitUpdatedUserId', `updatedId-${formData.value.userId}-${Date.now()}`)
     isShowUpdateModal.value = false;
     console.log('server response: ', response);
   } catch (e) {
@@ -77,6 +86,7 @@ const deleteUser = async () => {
       }
     );
 
+    emits('emitUpdatedUserId', `updatedId-${formData.value.userId}-${Date.now()}`)
     isShowDeleteModal.value = false;
     console.log('server response: ', response);
   } catch (e) {
@@ -112,7 +122,7 @@ const deleteUser = async () => {
         </tr>
       </thead>
       <tbody>
-        <tr v-if="users" v-for="(user, index) of users" :key="user"
+        <tr v-if="userData" v-for="(user, index) of userData" :key="user"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="w-4 p-4">
             <span class="font-semibold text-black">{{ index + 1 }}</span>
@@ -174,14 +184,14 @@ const deleteUser = async () => {
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                 <input v-model="formData.address" type="text" name="address" id="address"
                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required="" />
+                  required="true" />
               </div>
               <div>
                 <div>
                   <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                   <input v-model="formData.email" type="email" name="email" id="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    :required="isRequiredInput" />
+                    :required="true" />
                 </div>
                 <p v-if="submitted && emailError" class="text-sm text-red-600 dark:text-red-400">
                   {{ emailError }}

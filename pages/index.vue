@@ -10,21 +10,26 @@ async function getAspirations() {
 
 onMounted(async () => {
   setTimeout(() => {
-    getAspirations()
+    getAspirations();
   }, 100);
 });
 
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/user",
+    navigateAuthenticatedTo: '/user',
   },
 });
 </script>
 
 <template>
-  <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
-    <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
+  <section
+    id="home-section"
+    class="top-0 bg-slate-200 dark:bg-gray-900"
+  >
+    <div
+      class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0"
+    >
       <div class="w-full lg:max-w-2xl">
         <FormAspirasi />
       </div>
