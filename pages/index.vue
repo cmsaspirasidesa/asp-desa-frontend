@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from "vue";
+const listAspirations = ref([]);
 
 const listAspirations = ref(null);
 
@@ -18,11 +18,10 @@ async function fetchData() {
   }
 }
 
-console.log(listAspirations);
-
 onMounted(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  await fetchData();
+  setTimeout(() => {
+    getAspirations()
+  }, 100);
 });
 
 definePageMeta({
@@ -31,24 +30,19 @@ definePageMeta({
     navigateAuthenticatedTo: "/user",
   },
 });
-
-defineProps({
-  aspirationId: String,
-});
 </script>
 
 <template>
-  <div>
-    <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
-      <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
-        <div class="w-full lg:max-w-2xl">
-          <FormAspirasi />
-        </div>
-        <div class="hidden lg:flex lg:flex-col">
-          <GuestRegisCard />
-        </div>
+  <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
+    <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
+      <div class="w-full lg:max-w-2xl">
+        <FormAspirasi />
       </div>
-    </section>
+      <div class="hidden lg:flex lg:flex-col">
+        <GuestRegisCard />
+      </div>
+    </div>
+  </section>
 
     <section id="aspirasi-section" class="bg-gray-50 dark:bg-gray-800">
       <div class="max-w-screen-xl px-4 py-8 mx-auto sm:py-16 lg:px-6">

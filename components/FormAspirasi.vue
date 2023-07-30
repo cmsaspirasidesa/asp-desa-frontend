@@ -84,7 +84,7 @@ const addAspiration = async (inputData) => {
 </script>
 
 <template>
-  <form @submit.prevent
+  <form
     class="bg-white md:max-w-[400px] max-w-[350px] w-full m-auto flex flex-col px-6 py-3 rounded-[12px] md:border md:border-solid md:border-gray-300">
     <div>
       <div class="px-4 mx-auto">

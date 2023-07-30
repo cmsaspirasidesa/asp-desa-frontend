@@ -8,9 +8,7 @@ function toggleManajemen() {
 <template>
   <aside
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidenav"
-    id="drawer-navigation"
-  >
+    aria-label="Sidenav" id="drawer-navigation">
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
       <form
         action="#"
@@ -62,10 +60,7 @@ function toggleManajemen() {
               class="w-6 h-6"
             />
           </button>
-          <ul
-            id="dropdown-pages"
-            class="hidden py-2 space-y-2"
-          >
+          <ul id="dropdown-pages" class="hidden py-2 space-y-2">
             <li>
               <NuxtLink
                 to="../admin/user"
@@ -82,21 +77,15 @@ function toggleManajemen() {
             </li>
           </ul>
         </li>
+        </li>
       </ul>
     </div>
     <div
-      class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20"
-    >
-      <div
-        id="tooltip-settings"
-        role="tooltip"
-        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"
-      >
+      class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20">
+      <div id="tooltip-settings" role="tooltip"
+        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
         Settings page
-        <div
-          class="tooltip-arrow"
-          data-popper-arrow
-        ></div>
+        <div class="tooltip-arrow" data-popper-arrow></div>
       </div>
       <!-- Dropdown -->
     </div>
