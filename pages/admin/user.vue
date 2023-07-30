@@ -18,6 +18,8 @@ onBeforeMount(() => {
 const page = ref(1);
 const pageSize = ref(10);
 const query = ref('');
+const updatedId = ref(handleUpdatedUser);
+const deletedId = ref(handleDeletedUser);
 
 const { data: userList, pending } = await useFetch(
   () =>
@@ -29,9 +31,17 @@ const { data: userList, pending } = await useFetch(
       authorization: token.value.jwt,
     },
     key: `userlist-${page.value}`,
-    watch: [page, query],
+    watch: [page, query, updatedId, deletedId],
   }
 );
+
+function handleUpdatedUser(updatedUserId) {
+  return updatedUserId;
+}
+
+function handleDeletedUser(deletedUserId) {
+  return deletedUserId;
+}
 </script>
 
 <template>
@@ -66,7 +76,13 @@ const { data: userList, pending } = await useFetch(
         </div>
       </div>
       <div>
-        <UserTable :users="userList.data" />
+        <UserTable
+          v-if="!pending"
+          :users="userList.data"
+          @emitUpdatedUserId="handleUpdatedUser"
+          @emitDeletedUserId="handleDeletedUser"
+        />
+        <NuxtLoadingIndicator v-if="pending"/>
       </div>
     </div>
     <nav
@@ -85,7 +101,7 @@ const { data: userList, pending } = await useFetch(
           </span>
         </span>
       </div>
-      <div>
+      <div v-if="userList.total > pageSize">
         <nav aria-label="pagination">
           <ul class="flex items-center -space-x-px h-8 text-sm">
             <li>

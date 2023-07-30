@@ -71,7 +71,7 @@ const addAspiration = async (inputData) => {
   formData.append('nama', inputData.name);
 
   try {
-    const response = await useFetch('http://localhost:6969/aspirations/guest', {
+    const response = await useFetch('http://localhost:8000/aspirations/guest', {
       method: 'POST',
       body: formData,
     });

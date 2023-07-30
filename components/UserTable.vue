@@ -43,7 +43,7 @@ const accessToken = token.value;
 const updateUser = async () => {
   try {
     const response = await useFetch(
-      `http://localhost:6969/users/${formData.value.userId}`,
+      `http://localhost:8000/users/${formData.value.userId}`,
       {
         method: 'PUT',
         headers: {
@@ -57,6 +57,7 @@ const updateUser = async () => {
       }
     );
 
+    $emit('emitUpdatedUserId', formData.value.userId)
     isShowUpdateModal.value = false;
     console.log('server response: ', response);
   } catch (e) {
@@ -68,7 +69,7 @@ const updateUser = async () => {
 const deleteUser = async () => {
   try {
     const response = await useFetch(
-      `http://localhost:6969/users/${formData.value.userId}`,
+      `http://localhost:8000/users/${formData.value.userId}`,
       {
         method: 'DELETE',
         headers: {
@@ -77,6 +78,7 @@ const deleteUser = async () => {
       }
     );
 
+    $emit('emitDeletedUserId', formData.value.userId)
     isShowDeleteModal.value = false;
     console.log('server response: ', response);
   } catch (e) {
