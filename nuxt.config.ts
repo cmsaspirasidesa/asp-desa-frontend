@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@nuxt/image',
     '@sidebase/nuxt-auth',
+    '@element-plus/nuxt',
   ],
   auth: {
     enableGlobalAppMiddleware: true,
