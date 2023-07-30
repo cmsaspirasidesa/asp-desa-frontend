@@ -1,9 +1,8 @@
 <script setup>
 import desa from '../assets/image/Desa.png'
-// Reactive data to store the active link
+
 const activeLink = ref('/');
 
-// Function to handle scroll event and update active link
 const handleScroll = () => {
   const homeSection = document.getElementById('home-section');
   const aspirasiSection = document.getElementById('aspirasi-section');
@@ -22,12 +21,10 @@ const handleScroll = () => {
   }
 };
 
-// Add event listeners when the component is mounted
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
 
-// Remove event listeners when the component is unmounted
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
@@ -64,7 +61,7 @@ onUnmounted(() => {
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
-              <NuxtLink :to="{ path: '/', hash: '#home-section' }"
+              <NuxtLink :to="{ path: '/'}"
                 class="block py-2 pr-4 pl-3 lg:bg-transparent lg:p-0 dark:text-white"
                 :class="{ 'lg:border-b-2 border-black pb-2': activeLink === '/', 'text-gray-500': activeLink !== '/' }">
                 Home
