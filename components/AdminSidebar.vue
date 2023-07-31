@@ -15,35 +15,20 @@ function toggleManajemen() {
       </form>
       <ul class="space-y-2">
         <li>
-          <NuxtLink to="/admin"
+          <NuxtLink to="../admin/user"
             class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <Icon name="ri:pie-chart-2-fill"
+            <Icon name="ri:file-user-line"
               class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
-            <span class="ml-3">Dashboard</span>
+            <span class="ml-3">Manjemen User</span>
           </NuxtLink>
         </li>
         <li>
-          <button @click="toggleManajemen" type="button"
-            class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+          <NuxtLink to="../admin/aspirasi"
+            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <Icon name="mdi:file-document"
               class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
-            <span class="flex-1 ml-3 text-left whitespace-nowrap">Manajemen</span>
-            <Icon v-if="!isManjemen" name="ic:outline-keyboard-arrow-down" class="w-6 h-6" />
-            <Icon v-if="isManjemen" name="ic:outline-keyboard-arrow-up" class="w-6 h-6" />
-          </button>
-          <ul id="dropdown-pages" class="hidden py-2 space-y-2">
-            <li>
-              <NuxtLink to="../admin/user"
-                class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                User</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="../admin/aspirasi"
-                class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                Aspirasi</NuxtLink>
-            </li>
-          </ul>
+            <span class="ml-3">Manjemen Aspirasi</span>
+          </NuxtLink>
         </li>
       </ul>
     </div>

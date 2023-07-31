@@ -25,11 +25,11 @@ function handleAddAsp(addedAspId) {
 
 const defineStatusColor = (status) => {
   if (status.toLowerCase() === 'processed') {
-    return 'text-amber-500';
+    return 'text-amber-500 border-amber-300';
   } else if (status.toLowerCase() === 'done') {
-    return 'text-green-500';
+    return 'text-green-500 border-green-300';
   } else {
-    return 'text-blue-500';
+    return 'text-blue-500 border-blue-300';
   }
 };
 
@@ -135,7 +135,7 @@ definePageMeta({
               </h3>
             </div>
             <p
-              class="px-2 py-1 text-sm text-center font-bold border border-gray-300 border-solid rounded-md"
+              class="px-2 py-1 text-sm text-center font-bold border border-solid rounded-md"
               :class="defineStatusColor(aspiration.status)"
             >
               {{ aspiration.status }}
