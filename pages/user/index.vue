@@ -93,11 +93,11 @@ definePageMeta({
                   {{ aspiration.judul }}
                 </h3>
               </div>
-              <p v-if="aspiration.status === 'Submitted'"
+              <p v-if="aspiration.status === 'Diajukan'"
                 class="px-2 py-1 text-sm font-medium text-center border border-gray-300 border-solid rounded-md bg-blue-500 text-white">
                 {{ aspiration.status }}
               </p>
-              <p v-else-if="aspiration.status === 'Processed'"
+              <p v-else-if="aspiration.status === 'Diproses'"
                 class="px-2 py-1 text-sm font-medium text-center border border-gray-300 border-solid rounded-md bg-amber-500 text-white">
                 {{ aspiration.status }}
               </p>

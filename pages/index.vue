@@ -24,9 +24,9 @@ function handleAddAsp(addedAspId) {
 }
 
 const defineStatusColor = (status) => {
-  if (status.toLowerCase() === 'processed') {
+  if (status.toLowerCase() === 'diproses') {
     return 'bg-amber-500';
-  } else if (status.toLowerCase() === 'done') {
+  } else if (status.toLowerCase() === 'selesai') {
     return 'bg-green-500';
   } else {
     return 'bg-blue-500';
@@ -78,10 +78,10 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
   </section>
 
   <section id="aspirasi-section" class="bg-gray-50 py-4">
-    <h2 class="mb-4 text-4xl font-extrabold text-gray-900 text-center">
+    <h2 class="mb-4 text-4xl font-extrabold text-gray-900 text-center pt-8">
       Daftar Aspirasi
     </h2>
-    <div class="flex items-center justify-center pb-3">
+    <div class="flex items-center justify-center pb-6 pt-4">
       <label for="table-search" class="sr-only">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

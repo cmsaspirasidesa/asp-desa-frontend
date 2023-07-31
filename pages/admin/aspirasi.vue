@@ -39,10 +39,10 @@ let openModalDetail = ref(false)
 
 function openModal(id, status) {
   aspirationId.value = id
-  if (status === 'Processed') {
-    aspirationStatus.value = 'Done'
+  if (status === 'Diproses') {
+    aspirationStatus.value = 'Selesai'
   } else {
-    aspirationStatus.value = 'Processed'
+    aspirationStatus.value = 'Diproses'
   }
   open.value = true
 }
@@ -144,37 +144,43 @@ async function changeStatus() {
         </thead>
         <tbody>
           <tr v-for="(aspiration, index) of listAspirations.data.data"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4 m-auto">
+            class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" class="w-4 p-4 m-auto">
               <span class="font-semibold text-black">{{ index + 1 }}</span>
             </td>
-            <td class="px-6 py-4 text-lg">{{ aspiration.nama }}</td>
-            <td class="px-6 py-4 text-lg">
-              <button @click="sendDataModal(
-                aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-              )">
-                {{ aspiration.judul }}
-              </button>
-            </td>
-            <td v-if="aspiration.status === 'Submitted'" class="flex py-4">
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" class="px-6 py-4 text-lg">{{ aspiration.nama }}</td>
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" class="px-6 py-4 text-lg">{{ aspiration.judul }}</td>
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" v-if="aspiration.status === 'Diajukan'" class="flex py-4">
               <p class="px-4 py-2 text-blue-500 uppercase border border-solid border-blue-500 w-[105px]">{{
                 aspiration.status }}</p>
             </td>
-            <td v-else-if="aspiration.status === 'Processed'" class="flex py-4">
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" v-else-if="aspiration.status === 'Diproses'" class="flex py-4">
               <p class="px-4 py-2 text-orange-500 uppercase border border-solid border-orange-500 w-[105px]">{{
                 aspiration.status }}</p>
             </td>
-            <td v-else class="flex py-4">
+            <td @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )" v-else class="flex py-4">
               <p class="px-4 py-2 uppercase text-green-500 border border-solid border-green-500 w-[105px] text-center">{{
                 aspiration.status }}</p>
             </td>
             <td class="px-6 py-4">
-              <button v-if="aspiration.status === 'Submitted'" type="button"
+              <button v-if="aspiration.status === 'Diajukan'" type="button"
                 class="py-2 px-4 w-[80px] bg-slate-500 text-white rounded-md text-center"
-                @click="openModal(aspiration.id, aspiration.status)">Process</button>
-              <button v-else-if="aspiration.status === 'Processed'" type="button"
+                @click="openModal(aspiration.id, aspiration.status)">Proses</button>
+              <button v-else-if="aspiration.status === 'Diproses'" type="button"
                 class="py-2 px-4 w-[80px] bg-slate-500 text-white text-center rounded-md"
-                @click="openModal(aspiration.id, aspiration.status)">Done</button>
+                @click="openModal(aspiration.id, aspiration.status)">Selesai</button>
               <button v-else class="hidden"></button>
             </td>
           </tr>
@@ -199,7 +205,7 @@ async function changeStatus() {
                   <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
 
-                      <div v-if="aspirationStatus === 'Done'" class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                      <div v-if="aspirationStatus === 'Selesai'" class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                         <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Ganti status
                         </DialogTitle>
                         <div class="mt-2">
