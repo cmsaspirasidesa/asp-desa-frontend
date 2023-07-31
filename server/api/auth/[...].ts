@@ -3,7 +3,7 @@ import { NuxtAuthHandler } from '#auth'
 
 export default NuxtAuthHandler({
   pages: {
-    signIn: '/login',
+    signIn: '/',
     error: '/login',
   },
   secret: 'Rahasia',
