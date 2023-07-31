@@ -39,6 +39,30 @@ definePageMeta({
     navigateAuthenticatedTo: '/user',
   },
 });
+
+let dataModal = reactive({
+  judul: '',
+  nama: '',
+  deskripsi: '',
+  lokasi: '',
+  komentar: '',
+  tanggal: '',
+  status: '',
+  images: undefined
+})
+let openModalDetail = ref(false)
+function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal, images) {
+  dataModal.deskripsi = deskripsi
+  dataModal.judul = judul
+  dataModal.komentar = komentar
+  dataModal.lokasi = lokasi
+  dataModal.nama = nama
+  let tanggalDiBuat = new Date(tanggal)
+  dataModal.tanggal = `${tanggalDiBuat.getDate()}-${tanggalDiBuat.getMonth()}-${tanggalDiBuat.getFullYear()}`
+  dataModal.status = status
+  dataModal.images = images
+  openModalDetail.value = true
+}
 </script>
 
 <template>
@@ -100,9 +124,11 @@ definePageMeta({
             </p>
           </div>
           <div class="mt-5">
-            <NuxtLink :to="'/detail-aspirasi/' + aspiration.id" class="px-4 py-2 text-white bg-indigo-600 rounded-md">
+            <button class="px-4 py-2 text-white bg-indigo-600 rounded-md" @click="sendDataModal(
+              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+            )">
               Detail
-            </NuxtLink>
+            </button>
           </div>
         </div>
       </div>
@@ -163,4 +189,55 @@ definePageMeta({
       </div>
     </nav>
   </section>
+  <div v-if="openModalDetail"
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div
+      class="bg-black opacity-50 fixed top-0 left-0 right-0 z-50 items-center justify-center w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    </div>
+    <div class="relative z-50 w-80% h-full p-4 md:h-auto">
+      <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+        <button @click="openModalDetail = false" type="button"
+          class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+          <Icon name="heroicons-solid:x" size="1rem" />
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="flex">
+          <div class="w-[400px]">
+            <el-carousel :interval="5000" arrow="always" height="500px">
+              <div>
+                <div v-if="dataModal.images.length <= 0"
+                  class="flex justify-center items-center h-[500px] w-full bg-slate-500 flex-col">
+                  <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
+                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
+                </div>
+                <el-carousel-item v-else v-for="image of dataModal.images" :key="image.id"
+                  class="bg-slate-500 rounded overflow-hidden">
+                  <img :src="image.url" class="object-cover object-center h-full w-full" />
+                </el-carousel-item>
+              </div>
+            </el-carousel>
+          </div>
+          <div class="w-[600px] mx-8">
+            <h1 class="text-3xl font-semibold text-center mb-8">{{ dataModal.judul }}</h1>
+            <div class="flex justify-between my-2">
+              <h2 class="text-lg font-medium">Pembuat: {{ dataModal.nama }}, {{ dataModal.tanggal }}</h2>
+              <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+            </div>
+            <div class="text-start">
+              <p class="text-lg font-medium mb-1">Deskripsi</p>
+              <p class="text-gray-800">{{ dataModal.deskripsi }}</p>
+            </div>
+            <div class="text-start mt-4">
+              <p class="text-lg font-medium mb-1">Lokasi</p>
+              <p class="text-gray-800">{{ dataModal.lokasi }}</p>
+            </div>
+            <div v-if="dataModal.komentar" class="text-start mt-4">
+              <p class="text-lg font-medium mb-1">Komentar</p>
+              <p class="text-gray-800">{{ dataModal.komentar }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
