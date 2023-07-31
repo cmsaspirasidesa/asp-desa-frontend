@@ -9,7 +9,7 @@ const {data: token} = await useFetch('/api/token', {headers});
 const {signOut} = useAuth()
 const dataToken = jose.decodeJwt(token.value.jwt)
 const refreshData = ref(0)
-const page = ref(2);
+const page = ref(1);
 const pageSize = ref(10);
 const search = ref('')
 

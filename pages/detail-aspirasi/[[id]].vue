@@ -82,8 +82,8 @@ definePageMeta({
           class="text-black focus:ring-4 focus:ring-blue-300 font-semibold rounded-md mr-2 mb-2 text-xl px-2.5 py-1 bg-amber-500"
           :class="{
             'bg-blue-500 text-white': aspiration.status === 'Submitted',
-            'bg-amber-500': aspiration.status === 'Processed',
-            'bg-emerald-500': aspiration.status === 'Done',
+            'bg-amber-500 text-white': aspiration.status === 'Processed',
+            'bg-emerald-500 text-white': aspiration.status === 'Done',
           }">
           {{
             aspiration.status === "Submitted" ? "Diajukan" : aspiration.status === "Processed" ?
