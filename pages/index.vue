@@ -40,7 +40,6 @@ const defineFilter = (status) => {
   status === ''
     ? (filterText.value = 'Semua')
     : (filterText.value = status);
-  console.log(status);
 };
 
 definePageMeta({
@@ -60,7 +59,9 @@ let dataModal = reactive({
   status: '',
   images: undefined,
 });
+
 let openModalDetail = ref(false);
+
 function sendDataModal(
   nama,
   judul,

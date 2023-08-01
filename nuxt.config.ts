@@ -18,4 +18,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  build:{
+    transpile: ['vue-toastification'],
+  }
 });

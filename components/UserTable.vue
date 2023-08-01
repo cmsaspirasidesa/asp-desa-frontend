@@ -1,9 +1,13 @@
 <script setup>
+import { useToast } from 'vue-toastification';
+
 const props = defineProps({
   users: Object,
+  page: Number
 });
 
 const userData = ref(props.users)
+const toast = useToast();
 
 watchEffect(() => {
   userData.value = props.users
@@ -48,6 +52,24 @@ const headers = useRequestHeaders(['cookie']);
 const {data: token} = await useFetch('/api/token', {headers});
 const accessToken = token.value;
 
+const updateSuccess = () =>
+  toast.success('Data User berhasil diubah.', {
+    position: 'bottom-right',
+    timeout: 2000
+  });
+
+const deleteSuccess = () =>
+  toast.success('Data User berhasil dihapus.', {
+    position: 'bottom-right',
+    timeout: 2000
+  });
+
+const failed = (message) =>
+  toast.error(message, {
+    position: 'bottom-right',
+    timeout: 2000
+  });
+
 const updateUser = async () => {
   try {
     const response = await useFetch(
@@ -67,8 +89,10 @@ const updateUser = async () => {
 
     emits('emitUpdatedUserId', `updatedId-${formData.value.userId}-${Date.now()}`)
     isShowUpdateModal.value = false;
+    updateSuccess();
     console.log('server response: ', response);
   } catch (e) {
+    failed('Gagal update data')
     isShowUpdateModal.value = false;
     console.log(e);
   }
@@ -88,8 +112,10 @@ const deleteUser = async () => {
 
     emits('emitUpdatedUserId', `updatedId-${formData.value.userId}-${Date.now()}`)
     isShowDeleteModal.value = false;
+    deleteSuccess()
     console.log('server response: ', response);
   } catch (e) {
+    failed('Gagal hapus data')
     isShowUpdateModal.value = false;
     console.log(e);
   }

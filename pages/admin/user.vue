@@ -58,11 +58,9 @@ function handleUser(updatedUserId) {
       </div>
       <div>
         <UserTable
-          v-if="!pending"
           :users="userList.data"
           @emit-updated-user-id="handleUser"
         />
-        <NuxtLoadingIndicator v-if="pending"/> 
       </div>
     </div>
     <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
