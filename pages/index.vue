@@ -445,6 +445,9 @@ function sendDataModal(
               <p class="text-lg font-medium mb-1">Komentar</p>
               <p class="text-gray-800">{{ dataModal.komentar }}</p>
             </div>
+            <div class="text-end">
+              <p class="text-lg text-gray-800 mr-2">#{{ dataModal.tanggal }}</p>
+            </div>
           </div>
         </div>
       </div>
