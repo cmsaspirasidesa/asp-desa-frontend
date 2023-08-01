@@ -105,11 +105,13 @@ const addAspiration = async (inputData) => {
     emits('emitAddedAspId', `addedId-${inputData.email}-${Date.now()}`);
     images.splice(0, images.length);
     imageFiles.splice(0, imageFiles.length);
+    success();
     console.log('server response: ', response);
   } catch (e) {
     clearForm();
     images.splice(0, images.length);
     imageFiles.splice(0, imageFiles.length);
+    failed();
     console.log(e);
   }
 };
