@@ -240,7 +240,7 @@ function sendDataModal(
       <div>
         <span class="text-md font-normal text-gray-500 dark:text-gray-400">Menampilkan
           <span class="font-semibold text-gray-900 dark:text-white">
-            {{ `1-${aspList.data.data.length}` }}
+            {{ `${(page - 1) * 9 + 1} - ${page * 9 - (9 - aspList.data.data.length)}` }}
           </span>
           dari
           <span class="font-semibold text-gray-900 dark:text-white">

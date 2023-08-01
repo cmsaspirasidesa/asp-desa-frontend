@@ -474,7 +474,7 @@ const defineFilter = (status) => {
                   <p class="text-gray-800">{{ dataModal.komentar }}</p>
                 </div>
                 <div class="text-end">
-                  <p class="text-lg text-gray-800 mr-2">
+                  <p class="text-lg text-gray-800 mr-2 mt-4">
                     #{{ dataModal.tanggal }}
                   </p>
                 </div>
