@@ -183,7 +183,7 @@ onUnmounted(() => {
         for="judul"
         required="true"
         class="block text-sm font-medium leading-6 text-gray-900"
-        >Judul</label
+        >Judul Aspirasi</label
       >
       <div class="mt-2">
         <input
@@ -201,7 +201,7 @@ onUnmounted(() => {
         for="alamat"
         required="true"
         class="block text-sm font-medium leading-6 text-gray-900"
-        >Alamat Desa</label
+        >Alamat</label
       >
       <div class="mt-2">
         <input
@@ -218,7 +218,7 @@ onUnmounted(() => {
       <label
         for="deskripsi"
         class="block text-sm font-medium leading-6 text-gray-900"
-        >Deskripsi</label
+        >Deskripsi Aspirasi</label
       >
       <div class="mt-2">
         <textarea
@@ -261,7 +261,7 @@ onUnmounted(() => {
               for="foto"
               class="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
             >
-              <span>Upload a file</span>
+              <span>Unggah foto</span>
               <input
                 id="foto"
                 name="foto"
@@ -272,10 +272,10 @@ onUnmounted(() => {
                 accept="image/*"
               />
             </label>
-            <p class="pl-1">or drag and drop</p>
+            <p class="pl-1">atau tarik foto ke sini</p>
           </div>
           <p class="text-xs leading-5 text-gray-600">
-            PNG, JPG, GIF up to 10MB
+            PNG, JPG, GIF maksimal 4 foto (10MB)
           </p>
         </div>
       </div>
