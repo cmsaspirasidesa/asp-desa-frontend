@@ -1,36 +1,15 @@
 <script setup>
-import * as jose from "jose";
-const headers = useRequestHeaders(["cookie"]);
-const {data: token} = await useFetch("/api/token", {headers});
+import * as jose from 'jose';
+const headers = useRequestHeaders(['cookie']);
+const {data: token} = await useFetch('/api/token', {headers});
 const {signOut} = useAuth();
 const dataToken = jose.decodeJwt(token.value.jwt);
 const page = ref(1);
 const pageSize = ref(10);
-const search = ref("");
-let dataModal = reactive({
-  judul: '',
-  nama: '',
-  deskripsi: '',
-  lokasi: '',
-  komentar: '',
-  tanggal: '',
-  status: '',
-  images: undefined
-})
-
-let openModalDetail = ref(false)
-function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal, images) {
-  dataModal.deskripsi = deskripsi
-  dataModal.judul = judul
-  dataModal.komentar = komentar
-  dataModal.lokasi = lokasi
-  dataModal.nama = nama
-  let tanggalDiBuat = new Date(tanggal)
-  dataModal.tanggal = `${tanggalDiBuat.getDate()}-${tanggalDiBuat.getMonth()}-${tanggalDiBuat.getFullYear()}`
-  dataModal.status = status
-  dataModal.images = images
-  openModalDetail.value = true
-}
+const search = ref('');
+const aspirations = ref([]);
+const addedId = ref('');
+const filter = ref('');
 
 onBeforeMount(() => {
   if (dataToken.exp < Date.now() / 1000) {
@@ -38,33 +17,57 @@ onBeforeMount(() => {
   }
 });
 
-const {data: listAspirations} = await useFetch(
+const {data: aspList} = await useFetch(
   () =>
-    `http://localhost:8000/useraspirations?page=${page.value}&search=${search.value}`,
+    `http://localhost:8000/useraspirations?page=${page.value}&search=${search.value}&filter=${filter.value}`,
   {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: token.value.jwt,
     },
-    watch: [search, page],
+    watch: [search, page, addedId],
   }
 );
 
+console.log(aspList.value.data);
+
+watchEffect(() => {
+  aspirations.value = aspList.value.data;
+});
+
+function handleAddAsp(addedAspId) {
+  addedId.value = addedAspId;
+}
+
+const defineStatusColor = (status) => {
+  if (status.toLowerCase() === 'processed') {
+    return 'bg-amber-500';
+  } else if (status.toLowerCase() === 'done') {
+    return 'bg-green-500';
+  } else {
+    return 'bg-blue-500';
+  }
+};
+
+const defineFilter = (status) => {
+  filter.value = status;
+};
+
 definePageMeta({
-  layout: "user",
-  middleware: ["admin"],
+  layout: 'user',
+  middleware: ['admin'],
 });
 </script>
 
 <template>
   <div class="flex flex-col md:flex-row mt-8">
     <div class="md:w-2/5 items-start min-w-[300px] mx-2 lg:mx-0">
-      <FormAspirasiUser />
+      <FormAspirasiUser @emit-added-asp-id="handleAddAsp" />
     </div>
     <div class="md:w-3/5 mt-16 md:mt-0">
-      <div class="flex flex-wrap mt-8 gap-6 justify-center">
-        <div class="md:w-3/5 mt-16 md:mt-0">
-          <div class="relative lg:w-[95%] mx-auto w-[80%]">
+      <div class="flex flex-col gap-6 justify-between">
+        <div class="flex justify-between w-[90%] mt-16 md:mt-0">
+          <div class="relative lg:w-[55%] w-[40%]">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <Icon name="ic:round-search" size="20" class="text-gray-500" />
             </div>
@@ -72,10 +75,36 @@ definePageMeta({
               class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Cari nama, nik, atau email" />
           </div>
+
+          <div>
+            <button id="dropdownDefaultButton" data-dropdown-toggle="filter"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button">
+              Filter
+              <Icon name="ri:arrow-down-s-fill" size="20" />
+            </button>
+            <div id="filter"
+              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm right-10 text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li class="block px-4 py-2 text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button @click="defineFilter('diajukan')">Diajukan</button>
+                </li>
+                <li class="block px-4 py-2 text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button @click="defineFilter('diproses')">Diproses</button>
+                </li>
+                <li class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button @click="defineFilter('diterima')">Diterima</button>
+                </li>
+                <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button @click="defineFilter('')">Semua status</button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div v-for="aspiration of listAspirations.data.data" :key="aspiration.id"
-          class="lg:max-w-[350px] max-w-[250px] p-6 border border-solid border-gray-300 rounded-[12px]">
-          <div class="group">
+        <div class="flex flex-wrap gap-6">
+          <div v-for="aspiration of aspirations.data" :key="aspiration.id"
+            class="w-[350px] p-6 border border-solid border-gray-300 rounded-[12px]">
             <div class="overflow-hidden rounded-md group-hover:opacity-75 h-[300px] bg-slate-400">
               <div v-if="aspiration.Images.length <= 0" class="flex justify-center items-center h-full w-full flex-col">
                 <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
@@ -93,16 +122,8 @@ definePageMeta({
                   {{ aspiration.judul }}
                 </h3>
               </div>
-              <p v-if="aspiration.status === 'Diajukan'"
-                class="px-2 py-1 text-sm font-medium text-center border border-gray-300 border-solid rounded-md bg-blue-500 text-white">
-                {{ aspiration.status }}
-              </p>
-              <p v-else-if="aspiration.status === 'Diproses'"
-                class="px-2 py-1 text-sm font-medium text-center border border-gray-300 border-solid rounded-md bg-amber-500 text-white">
-                {{ aspiration.status }}
-              </p>
-              <p v-else
-                class="px-2 py-1 text-sm font-medium text-center border border-gray-300 border-solid rounded-md bg-green-500 text-white">
+              <p class="px-2 py-1 text-sm font-medium text-center text-white rounded"
+                :class="defineStatusColor(aspiration.status)">
                 {{ aspiration.status }}
               </p>
             </div>
@@ -112,28 +133,27 @@ definePageMeta({
               </p>
             </div>
             <div class="mt-5">
-              <button class="px-4 py-2 text-white bg-indigo-600 rounded-md" @click="sendDataModal(
-                aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-              )">
+              <NuxtLink :to="'/detail-aspirasi/' + aspiration.id" class="px-4 py-2 text-white bg-indigo-600 rounded-md">
                 Detail
-              </button>
+              </NuxtLink>
             </div>
           </div>
         </div>
       </div>
-      <nav class="flex items-center justify-between pt-4 lg:w-[95%] mx-auto w-[80%]" aria-label="Table navigation">
+      <nav v-if="aspList.data.data.total > 0" class="flex items-center justify-between pt-4 lg:w-[95%] mx-auto w-[80%]"
+        aria-label="Table navigation">
         <div>
           <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Menampilkan
             <span class="font-semibold text-gray-900 dark:text-white">
-              {{ `1-${listAspirations.data.data.length}` }}
+              {{ `1-${aspList.data.data.length}` }}
             </span>
             dari
             <span class="font-semibold text-gray-900 dark:text-white">
-              {{ listAspirations.data.total }}
+              {{ aspList.data.total }}
             </span>
           </span>
         </div>
-        <div v-if="listAspirations.data.total > pageSize">
+        <div v-if="aspList.data.total > pageSize">
           <nav aria-label="pagination">
             <ul class="flex items-center -space-x-px h-8 text-sm">
               <li>
@@ -155,13 +175,13 @@ definePageMeta({
                 </span>
               </li>
               <li>
-                <button v-if="page < listAspirations.data.total_page" @click="page++"
+                <button v-if="page < aspList.data.total_page" @click="page++"
                   class="flex items-center justify-center px-1 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                   <Icon name="ic:baseline-arrow-right" size="25" class="hover:text-cyan-500" />
                 </button>
               </li>
               <li>
-                <button @click="page = listAspirations.data.total_page"
+                <button @click="page = aspList.data.total_page"
                   class="flex items-center justify-center px-2 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                   <span class="hover:text-cyan-500">Akhir</span>
                 </button>
@@ -191,7 +211,9 @@ definePageMeta({
                 <div v-if="dataModal.images.length <= 0"
                   class="flex justify-center items-center h-[500px] w-full bg-slate-500 flex-col">
                   <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
-                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
+                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">
+                    No Image
+                  </p>
                 </div>
                 <el-carousel-item v-else v-for="image of dataModal.images" :key="image.id"
                   class="bg-slate-500 rounded overflow-hidden">

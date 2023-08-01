@@ -60,8 +60,15 @@ const formData = ref({
 });
 
 const headers = useRequestHeaders(['cookie']);
-const {data: token} = await useFetch('/api/token', {headers});
+const { data: token } = await useFetch('/api/token', { headers });
 const accessToken = token.value;
+
+const emits = defineEmits(['emitAddedAspId']);
+function clearForm() {
+  formData.value.title = '';
+  formData.value.location = '';
+  formData.value.description = '';
+}
 
 const addAspiration = async (inputData) => {
   const formData = new FormData();
@@ -82,8 +89,15 @@ const addAspiration = async (inputData) => {
       body: formData,
     });
 
+    clearForm();
+    emits('emitAddedAspId', `addedId-${Date.now()}`);
+    images.splice(0, images.length);
+    imageFiles.splice(0, imageFiles.length);
     console.log('server response: ', response);
   } catch (e) {
+    clearForm();
+    images.splice(0, images.length);
+    imageFiles.splice(0, imageFiles.length);
     console.log(e);
   }
 };
@@ -91,33 +105,70 @@ const addAspiration = async (inputData) => {
 
 <template>
   <form
-    class="bg-white md:max-w-[400px] max-w-[350px] w-full m-auto flex flex-col px-6 py-3 rounded-[12px] md:border md:border-solid md:border-gray-300">
+    @submit.prevent
+    method="post"
+    class="bg-white md:max-w-[400px] max-w-[350px] w-full m-auto flex flex-col px-6 py-3 rounded-[12px] md:border md:border-solid md:border-gray-300"
+  >
     <div>
       <div class="px-4 mx-auto">
-        <h2 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white text-center">
+        <h2
+          class="mb-2 text-3xl font-bold text-gray-900 dark:text-white text-center"
+        >
           Form Aspirasi
         </h2>
       </div>
     </div>
     <div class="mt-2">
-      <label for="judul" required="true" class="block text-sm font-medium leading-6 text-gray-900">Judul Aspirasi</label>
+      <label
+        for="judul"
+        required="true"
+        class="block text-sm font-medium leading-6 text-gray-900"
+        >Judul Aspirasi</label
+      >
       <div class="mt-2">
-        <input v-model="formData.title" type="text" name="judul" id="judul" autocomplete="judul"
-          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+        <input
+          v-model="formData.title"
+          type="text"
+          name="judul"
+          id="judul"
+          autocomplete="judul"
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
       </div>
     </div>
     <div class="mt-2">
-      <label for="alamat" required="true" class="block text-sm font-medium leading-6 text-gray-900">Alamat Desa</label>
+      <label
+        for="alamat"
+        required="true"
+        class="block text-sm font-medium leading-6 text-gray-900"
+        >Alamat</label
+      >
       <div class="mt-2">
-        <input v-model="formData.location" type="text" name="alamat" id="alamat" autocomplete="alamat"
-          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+        <input
+          v-model="formData.location"
+          type="text"
+          name="alamat"
+          id="alamat"
+          autocomplete="alamat"
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
       </div>
     </div>
     <div class="mt-2">
-      <label for="deskripsi" class="block text-sm font-medium leading-6 text-gray-900">Deskripsi Aspirasi</label>
+      <label
+        for="deskripsi"
+        class="block text-sm font-medium leading-6 text-gray-900"
+        >Deskripsi Aspirasi</label
+      >
       <div class="mt-2">
-        <textarea v-model="formData.description" id="deskripsi" name="deskripsi" rows="5"
-          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+        <textarea
+          v-model="formData.description"
+          type="text"
+          id="deskripsi"
+          name="deskripsi"
+          rows="5"
+          class="block w-full bg-gray-50 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
       </div>
     </div>
 
@@ -135,38 +186,74 @@ const addAspiration = async (inputData) => {
           </p>
         </div>
       </div>
-      <div class="flex justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25" @drop="onDrop"
-        @dragover="onOver">
+      <div
+        class="flex justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25"
+        @drop="onDrop"
+        @dragover="onOver"
+      >
         <div class="text-center">
-          <Icon name="heroicons-solid:photo" class="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+          <Icon
+            name="heroicons-solid:photo"
+            class="mx-auto h-12 w-12 text-gray-300"
+            aria-hidden="true"
+          />
           <div class="mt-4 flex text-sm leading-6 text-gray-600">
-            <label for="foto"
-              class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-              <span>Upload a file</span>
-              <input id="foto" name="foto" multiple type="file" class="sr-only" @change="onFileChange" accept="image/*" />
+            <label
+              for="foto"
+              class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+            >
+              <span>Unggah foto</span>
+              <input
+                id="foto"
+                name="foto"
+                multiple
+                type="file"
+                class="sr-only"
+                @change="onFileChange"
+                accept="image/*"
+              />
             </label>
-            <p class="pl-1">or drag and drop</p>
+            <p class="pl-1">atau tarik foto ke sini</p>
           </div>
           <p class="text-xs leading-5 text-gray-600">
-            PNG, JPG, GIF up to 10MB
+            PNG, JPG, GIF maksimal 4 foto (10MB)
           </p>
         </div>
       </div>
     </div>
 
-    <div v-if="images" class="flex flex-wrap w-full gap-2 mt-2 justify-center">
-      <div v-for="(foto, index) in images" class="bg-orange-400 rounded-md overflow-hidden w-[45%] h-[100px] relative">
-        <img :src="foto" alt="images Aspirasi" class="h-full w-full object-cover object-center" />
-        <button type="button" @click="removeImage(index)"
-          class="absolute right-1 top-1 w-5 h-5 bg-red-600 flex justify-center items-center rounded-[50%]">
-          <Icon name="ci:close-md" class="text-white" />
+    <div
+      v-if="images"
+      class="flex flex-wrap w-full gap-2 mt-2 justify-center"
+    >
+      <div
+        v-for="(foto, index) in images"
+        class="bg-orange-400 rounded-md overflow-hidden w-[45%] h-[100px] relative"
+      >
+        <img
+          :src="foto"
+          alt="images Aspirasi"
+          class="h-full w-full object-cover object-center"
+        />
+        <button
+          type="button"
+          @click="removeImage(index)"
+          class="absolute right-1 top-1 w-5 h-5 bg-red-600 flex justify-center items-center rounded-[50%]"
+        >
+          <Icon
+            name="ci:close-md"
+            class="text-white"
+          />
         </button>
       </div>
     </div>
 
     <div class="mt-2 flex items-center justify-end gap-x-6">
-      <button @click="addAspiration(formData)" type="submit"
-        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <button
+        @click="addAspiration(formData)"
+        type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
         Kirim
       </button>
     </div>

@@ -5,7 +5,7 @@ const pageSize = ref(9);
 const query = ref('');
 const addedId = ref('');
 
-const {data: aspList, pending} = await useFetch(
+const { data: aspList } = await useFetch(
   () =>
     `http://localhost:8000/aspirations?page=${page.value}&limit=${pageSize.value}&search=${query.value}`,
   {
@@ -92,7 +92,7 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
           placeholder="Cari judul aspirasi, email atau nama user" />
       </div>
     </div>
-    <div v-if="!pending" class="flex gap-10 justify-center flex-wrap">
+    <div class="flex gap-10 justify-center flex-wrap">
       <div v-for="(aspiration, index) of aspirations.data" :key="aspiration.id"
         class="w-[350px] p-6 border border-solid border-gray-300 rounded-[12px]">
         <div class="group">
