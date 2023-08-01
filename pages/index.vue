@@ -4,10 +4,12 @@ const page = ref(1);
 const pageSize = ref(9);
 const query = ref('');
 const addedId = ref('');
+const filter = ref('');
+const filterText = ref('Semua');
 
 const {data: aspList} = await useFetch(
   () =>
-    `http://localhost:8000/aspirations?page=${page.value}&limit=${pageSize.value}&search=${query.value}`,
+    `http://localhost:8000/aspirations?page=${page.value}&limit=${pageSize.value}&search=${query.value}&status=${filter.value}`,
   {
     method: 'GET',
     key: `asplist-${page.value}`,
@@ -33,6 +35,14 @@ const defineStatusColor = (status) => {
   }
 };
 
+const defineFilter = (status) => {
+  filter.value = status;
+  status === ''
+    ? (filterText.value = 'Semua')
+    : (filterText.value = status);
+  console.log(status);
+};
+
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
@@ -48,20 +58,29 @@ let dataModal = reactive({
   komentar: '',
   tanggal: '',
   status: '',
-  images: undefined
-})
-let openModalDetail = ref(false)
-function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal, images) {
-  dataModal.deskripsi = deskripsi
-  dataModal.judul = judul
-  dataModal.komentar = komentar
-  dataModal.lokasi = lokasi
-  dataModal.nama = nama
-  let tanggalDiBuat = new Date(tanggal)
-  dataModal.tanggal = `${tanggalDiBuat.getDate()}-${tanggalDiBuat.getMonth()}-${tanggalDiBuat.getFullYear()}`
-  dataModal.status = status
-  dataModal.images = images
-  openModalDetail.value = true
+  images: undefined,
+});
+let openModalDetail = ref(false);
+function sendDataModal(
+  nama,
+  judul,
+  deskripsi,
+  lokasi,
+  komentar,
+  status,
+  tanggal,
+  images
+) {
+  dataModal.deskripsi = deskripsi;
+  dataModal.judul = judul;
+  dataModal.komentar = komentar;
+  dataModal.lokasi = lokasi;
+  dataModal.nama = nama;
+  let tanggalDiBuat = new Date(tanggal);
+  dataModal.tanggal = `${tanggalDiBuat.getDate()}-${tanggalDiBuat.getMonth()}-${tanggalDiBuat.getFullYear()}`;
+  dataModal.status = status;
+  dataModal.images = images;
+  openModalDetail.value = true;
 }
 </script>
 
@@ -81,19 +100,51 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 text-center pt-8">
       Daftar Aspirasi
     </h2>
-    <div class="flex items-center justify-center pb-6 pt-4">
+    <div class="flex items-center justify-between pb-6 pt-4 lg:px-28 md:px-20 gap-4 sm:gap-1">
       <label for="table-search" class="sr-only">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <Icon name="ic:round-search" size="20" class="text-gray-500" />
         </div>
         <input v-model="query" @input="() => (page = 1)" type="text" id="table-search"
-          class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-[350px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-[350px] sm:w-[300px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Cari judul aspirasi, email atau nama user" />
+      </div>
+      <div>
+        <button id="dropdownDefaultButton" data-dropdown-toggle="filter"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          type="button">
+          {{ filterText }}
+          <Icon name="ri:arrow-down-s-fill" size="20" />
+        </button>
+        <div id="filter" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm right-10 text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <li class="block px-4 py-2 text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button @click="defineFilter('Diajukan')" class="w-full text-left">
+                Diajukan
+              </button>
+            </li>
+            <li class="block px-4 py-2 text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button @click="defineFilter('Diproses')" class="w-full text-left">
+                Diproses
+              </button>
+            </li>
+            <li class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button @click="defineFilter('Selesai')" class="w-full text-left">
+                Selesai
+              </button>
+            </li>
+            <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button @click="defineFilter('')" class="w-full text-left">
+                Semua status
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="flex gap-10 justify-center flex-wrap">
-      <div v-for="(aspiration, index) of aspirations.data" :key="aspiration.id"
+      <div v-for="aspiration of aspirations.data" :key="aspiration.id"
         class="w-[350px] p-6 border border-solid border-gray-300 rounded-[12px]">
         <div class="group">
           <div class="overflow-hidden rounded-md group-hover:opacity-75 h-[300px] bg-slate-400">
@@ -124,9 +175,18 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
             </p>
           </div>
           <div class="mt-5">
-            <button class="px-4 py-2 text-white bg-indigo-600 rounded-md" @click="sendDataModal(
-              aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-            )">
+            <button class="px-4 py-2 text-white bg-indigo-600 rounded-md" @click="
+              sendDataModal(
+                aspiration.nama,
+                aspiration.judul,
+                aspiration.deskripsi,
+                aspiration.lokasi,
+                aspiration.komentar,
+                aspiration.status,
+                aspiration.createdAt,
+                aspiration.Images
+              )
+              ">
               Detail
             </button>
           </div>
@@ -208,7 +268,9 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
                 <div v-if="dataModal.images.length <= 0"
                   class="flex justify-center items-center h-[500px] w-full bg-slate-500 flex-col">
                   <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
-                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
+                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">
+                    No Image
+                  </p>
                 </div>
                 <el-carousel-item v-else v-for="image of dataModal.images" :key="image.id"
                   class="bg-slate-500 rounded overflow-hidden">
@@ -218,9 +280,12 @@ function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal
             </el-carousel>
           </div>
           <div class="w-[600px] mx-8">
-            <h1 class="text-3xl font-semibold text-center mb-8">{{ dataModal.judul }}</h1>
-            <div class="flex justify-between items-center my-2 mb-4">
-              <h2 class="text-lg text-start font-medium">Pembuat<span class="font-normal"><br>{{ dataModal.nama }}</span>
+            <h1 class="text-3xl font-semibold text-center mb-8">
+              {{ dataModal.judul }}
+            </h1>
+            <div class="flex justify-between my-2">
+              <h2 class="text-lg font-medium">
+                Pembuat: {{ dataModal.nama }}, {{ dataModal.tanggal }}
               </h2>
               <div class="flex gap-2 items-center">
                 <p class="text-lg font-medium">Status:</p>

@@ -113,8 +113,10 @@ definePageMeta({
                 <li class="block px-4 py-2 text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <button @click="defineFilter('diproses')">Diproses</button>
                 </li>
-                <li class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  <button @click="defineFilter('diterima')">Diterima</button>
+                <li
+                  class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  <button @click="defineFilter('selesai')">Selesai</button>
                 </li>
                 <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <button @click="defineFilter('')">Semua status</button>
