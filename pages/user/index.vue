@@ -9,7 +9,30 @@ const pageSize = ref(10);
 const search = ref('');
 const aspirations = ref([]);
 const addedId = ref('');
-const filter = ref('');
+const filter = ref(''); function sendDataModal(nama, judul, deskripsi, lokasi, komentar, status, tanggal, images) {
+  dataModal.deskripsi = deskripsi
+  dataModal.judul = judul
+  dataModal.komentar = komentar
+  dataModal.lokasi = lokasi
+  dataModal.nama = nama
+  let tanggalDiBuat = new Date(tanggal)
+  dataModal.tanggal = `${tanggalDiBuat.getDate()}-${tanggalDiBuat.getMonth()}-${tanggalDiBuat.getFullYear()}`
+  dataModal.status = status
+  dataModal.images = images
+  openModalDetail.value = true
+}
+
+let openModalDetail = ref(false)
+let dataModal = reactive({
+  judul: '',
+  nama: '',
+  deskripsi: '',
+  lokasi: '',
+  komentar: '',
+  tanggal: '',
+  status: '',
+  images: undefined
+})
 
 onBeforeMount(() => {
   if (dataToken.exp < Date.now() / 1000) {
@@ -29,8 +52,6 @@ const {data: aspList} = await useFetch(
   }
 );
 
-console.log(aspList.value.data);
-
 watchEffect(() => {
   aspirations.value = aspList.value.data;
 });
@@ -40,9 +61,9 @@ function handleAddAsp(addedAspId) {
 }
 
 const defineStatusColor = (status) => {
-  if (status.toLowerCase() === 'processed') {
+  if (status.toLowerCase() === 'diajukan') {
     return 'bg-amber-500';
-  } else if (status.toLowerCase() === 'done') {
+  } else if (status.toLowerCase() === 'selesai') {
     return 'bg-green-500';
   } else {
     return 'bg-blue-500';
@@ -133,9 +154,11 @@ definePageMeta({
               </p>
             </div>
             <div class="mt-5">
-              <NuxtLink :to="'/detail-aspirasi/' + aspiration.id" class="px-4 py-2 text-white bg-indigo-600 rounded-md">
+              <button class="px-4 py-2 text-white bg-indigo-600 rounded-md" @click="sendDataModal(
+                aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
+              )">
                 Detail
-              </NuxtLink>
+              </button>
             </div>
           </div>
         </div>
@@ -211,9 +234,7 @@ definePageMeta({
                 <div v-if="dataModal.images.length <= 0"
                   class="flex justify-center items-center h-[500px] w-full bg-slate-500 flex-col">
                   <Icon name="heroicons-solid:photo" class="w-12 h-12 mx-auto text-gray-300" aria-hidden="true" />
-                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">
-                    No Image
-                  </p>
+                  <p class="text-2xl text-center font-semibold text-gray-300 mt-2">No Image</p>
                 </div>
                 <el-carousel-item v-else v-for="image of dataModal.images" :key="image.id"
                   class="bg-slate-500 rounded overflow-hidden">
@@ -229,7 +250,11 @@ definePageMeta({
               </h2>
               <div class="flex gap-2 items-center">
                 <p class="text-lg font-medium">Status:</p>
-                <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                <span v-if="dataModal.status === 'Diajukan'" class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{
+                  dataModal.status }}</span>
+                <span v-if="dataModal.status === 'Diproses'" class="py-2 px-4 bg-amber-500 rounded-sm text-white">{{
+                  dataModal.status }}</span>
+                <span v-else class="py-2 px-4 bg-green-500 rounded-sm text-white">{{ dataModal.status }}</span>
               </div>
             </div>
             <div class="text-start">

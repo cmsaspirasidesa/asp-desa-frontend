@@ -10,7 +10,7 @@
       <div class="flex flex-wrap items-center justify-center w-full">
         <p class="mb-2 font-bold text-center text-xl w-full">Belum punya akun?</p>
         <NuxtLink to="/register"
-          class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-slate-800 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+          class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-500">
           Daftar
         </NuxtLink>
       </div>

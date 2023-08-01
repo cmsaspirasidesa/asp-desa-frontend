@@ -165,7 +165,7 @@ async function changeStatus() {
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
             )" v-else-if="aspiration.status === 'Diproses'" class="flex py-4">
-              <p class="px-4 py-2 text-orange-500 uppercase border border-solid border-orange-500 w-[90px]">{{
+              <p class="px-4 py-2 text-amber-500 uppercase border border-solid border-amber-500 w-[90px]">{{
                 aspiration.status }}</p>
             </td>
             <td @click="sendDataModal(
@@ -282,7 +282,11 @@ async function changeStatus() {
                   </h2>
                   <div class="flex gap-2 items-center">
                     <p class="text-lg font-medium">Status:</p>
-                    <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                    <span v-if="dataModal.status === 'Diajukan'" class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{
+                      dataModal.status }}</span>
+                    <span v-if="dataModal.status === 'Diproses'" class="py-2 px-4 bg-amber-500 rounded-sm text-white">{{
+                      dataModal.status }}</span>
+                    <span v-else class="py-2 px-4 bg-green-500 rounded-sm text-white">{{ dataModal.status }}</span>
                   </div>
                 </div>
                 <div class="text-start">
