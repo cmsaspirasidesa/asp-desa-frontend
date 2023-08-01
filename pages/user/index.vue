@@ -202,9 +202,13 @@ definePageMeta({
           </div>
           <div class="w-[600px] mx-8">
             <h1 class="text-3xl font-semibold text-center mb-8">{{ dataModal.judul }}</h1>
-            <div class="flex justify-between my-2">
-              <h2 class="text-lg font-medium">Pembuat: {{ dataModal.nama }}, {{ dataModal.tanggal }}</h2>
-              <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+            <div class="flex justify-between items-center my-2 mb-4">
+              <h2 class="text-lg text-start font-medium">Pembuat<span class="font-normal"><br>{{ dataModal.nama }}</span>
+              </h2>
+              <div class="flex gap-2 items-center">
+                <p class="text-lg font-medium">Status:</p>
+                <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+              </div>
             </div>
             <div class="text-start">
               <p class="text-lg font-medium mb-1">Deskripsi</p>
@@ -217,6 +221,9 @@ definePageMeta({
             <div v-if="dataModal.komentar" class="text-start mt-4">
               <p class="text-lg font-medium mb-1">Komentar</p>
               <p class="text-gray-800">{{ dataModal.komentar }}</p>
+            </div>
+            <div class="text-end">
+              <p class="text-lg text-gray-800 mr-2">#{{ dataModal.tanggal }}</p>
             </div>
           </div>
         </div>

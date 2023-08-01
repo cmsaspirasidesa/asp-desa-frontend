@@ -125,19 +125,19 @@ async function changeStatus() {
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="p-4">
-              <span class="text-base text-center">No</span>
+            <th scope="col" class="py-2 text-center">
+              <span class="text-base">No</span>
             </th>
-            <th scope="col" class="px-6 py-3 text-base text-center">
+            <th scope="col" class="py-2 w-[350px] text-base">
               Nama User
             </th>
-            <th scope="col" class="px-6 py-3 text-base text-center">
+            <th scope="col" class="py-2 w-[350px] text-base">
               Judul
             </th>
-            <th scope="col" class="px-6 py-3 text-base text-center">
+            <th scope="col" class="w-[100px] py-2 text-base text-center">
               Status
             </th>
-            <th scope="col" class="px-6 py-3 text-base text-center">
+            <th scope="col" class="w-[100px] py-2 text-base text-center">
               Action
             </th>
           </tr>
@@ -147,39 +147,39 @@ async function changeStatus() {
             class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-            )" class="w-4 p-4 m-auto">
+            )" class="text-center">
               <span class="font-semibold text-black">{{ index + 1 }}</span>
             </td>
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-            )" class="px-6 py-4 text-lg">{{ aspiration.nama }}</td>
+            )" class="py-2 text-lg">{{ aspiration.nama }}</td>
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
-            )" class="px-6 py-4 text-lg">{{ aspiration.judul }}</td>
+            )" class="py-2 text-lg">{{ aspiration.judul }}</td>
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
             )" v-if="aspiration.status === 'Diajukan'" class="flex py-4">
-              <p class="px-4 py-2 text-blue-500 uppercase border border-solid border-blue-500 w-[105px]">{{
+              <p class="py-2 text-center text-blue-500 uppercase border border-solid border-blue-500 w-[90px]">{{
                 aspiration.status }}</p>
             </td>
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
             )" v-else-if="aspiration.status === 'Diproses'" class="flex py-4">
-              <p class="px-4 py-2 text-orange-500 uppercase border border-solid border-orange-500 w-[105px]">{{
+              <p class="px-4 py-2 text-orange-500 uppercase border border-solid border-orange-500 w-[90px]">{{
                 aspiration.status }}</p>
             </td>
             <td @click="sendDataModal(
               aspiration.nama, aspiration.judul, aspiration.deskripsi, aspiration.lokasi, aspiration.komentar, aspiration.status, aspiration.createdAt, aspiration.Images
             )" v-else class="flex py-4">
-              <p class="px-4 py-2 uppercase text-green-500 border border-solid border-green-500 w-[105px] text-center">{{
+              <p class="px-4 py-2 uppercase text-green-500 border border-solid border-green-500 w-[90px] text-center">{{
                 aspiration.status }}</p>
             </td>
-            <td class="px-6 py-4">
+            <td class="py-2 text-center">
               <button v-if="aspiration.status === 'Diajukan'" type="button"
-                class="py-2 px-4 w-[80px] bg-slate-500 text-white rounded-md text-center"
+                class="py-2 w-[80px] bg-slate-500 text-white rounded-md text-center"
                 @click="openModal(aspiration.id, aspiration.status)">Proses</button>
               <button v-else-if="aspiration.status === 'Diproses'" type="button"
-                class="py-2 px-4 w-[80px] bg-slate-500 text-white text-center rounded-md"
+                class="py-2 w-[80px] bg-slate-500 text-white text-center rounded-md"
                 @click="openModal(aspiration.id, aspiration.status)">Selesai</button>
               <button v-else class="hidden"></button>
             </td>
@@ -276,9 +276,14 @@ async function changeStatus() {
               </div>
               <div class="w-[600px] mx-8">
                 <h1 class="text-3xl font-semibold text-center mb-8">{{ dataModal.judul }}</h1>
-                <div class="flex justify-between my-2">
-                  <h2 class="text-lg font-medium">Pembuat: {{ dataModal.nama }}, {{ dataModal.tanggal }}</h2>
-                  <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                <div class="flex justify-between items-center my-2 mb-4">
+                  <h2 class="text-lg text-start font-medium">Pembuat<span class="font-normal"><br>{{ dataModal.nama
+                  }}</span>
+                  </h2>
+                  <div class="flex gap-2 items-center">
+                    <p class="text-lg font-medium">Status:</p>
+                    <span class="py-2 px-4 bg-blue-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                  </div>
                 </div>
                 <div class="text-start">
                   <p class="text-lg font-medium mb-1">Deskripsi</p>
@@ -291,6 +296,9 @@ async function changeStatus() {
                 <div v-if="dataModal.komentar" class="text-start mt-4">
                   <p class="text-lg font-medium mb-1">Komentar</p>
                   <p class="text-gray-800">{{ dataModal.komentar }}</p>
+                </div>
+                <div class="text-end">
+                  <p class="text-lg text-gray-800 mr-2">#{{ dataModal.tanggal }}</p>
                 </div>
               </div>
             </div>
