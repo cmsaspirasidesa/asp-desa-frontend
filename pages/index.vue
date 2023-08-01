@@ -285,8 +285,8 @@ function sendDataModal(
               {{ dataModal.judul }}
             </h1>
             <div class="flex justify-between my-2">
-              <h2 class="text-lg font-medium">
-                Pembuat: {{ dataModal.nama }}, {{ dataModal.tanggal }}
+              <h2 class="text-lg text-start font-medium">
+                Pembuat<span class="font-normal"><br />{{ dataModal.nama }}</span>
               </h2>
               <div class="flex gap-2 items-center">
                 <p class="text-lg font-medium">Status:</p>
@@ -294,7 +294,8 @@ function sendDataModal(
                   dataModal.status }}</span>
                 <span v-if="dataModal.status === 'Diproses'" class="py-2 px-4 bg-amber-500 rounded-sm text-white">{{
                   dataModal.status }}</span>
-                <span v-else class="py-2 px-4 bg-green-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                <span v-if="dataModal.status === 'Selesai'" class="py-2 px-4 bg-green-500 rounded-sm text-white">{{
+                  dataModal.status }}</span>
               </div>
             </div>
             <div class="text-start">

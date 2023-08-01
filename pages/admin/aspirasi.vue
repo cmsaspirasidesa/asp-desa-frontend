@@ -454,7 +454,8 @@ const defineFilter = (status) => {
                       dataModal.status }}</span>
                     <span v-if="dataModal.status === 'Diproses'" class="py-2 px-4 bg-amber-500 rounded-sm text-white">{{
                       dataModal.status }}</span>
-                    <span v-else class="py-2 px-4 bg-green-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                    <span v-if="dataModal.status === 'Selesai'" class="py-2 px-4 bg-green-500 rounded-sm text-white">{{
+                      dataModal.status }}</span>
                   </div>
                 </div>
                 <div class="text-start">

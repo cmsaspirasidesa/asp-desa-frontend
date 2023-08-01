@@ -113,9 +113,7 @@ definePageMeta({
                 <li class="block px-4 py-2 text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <button @click="defineFilter('diproses')">Diproses</button>
                 </li>
-                <li
-                  class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
+                <li class="block px-4 py-2 text-green-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                   <button @click="defineFilter('selesai')">Selesai</button>
                 </li>
                 <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -248,7 +246,8 @@ definePageMeta({
           <div class="w-[600px] mx-8">
             <h1 class="text-3xl font-semibold text-center mb-8">{{ dataModal.judul }}</h1>
             <div class="flex justify-between items-center my-2 mb-4">
-              <h2 class="text-lg text-start font-medium">Pembuat<span class="font-normal"><br>{{ dataModal.nama }}</span>
+              <h2 class="text-lg text-start font-medium">
+                Pembuat<span class="font-normal"><br />{{ dataModal.nama }}</span>
               </h2>
               <div class="flex gap-2 items-center">
                 <p class="text-lg font-medium">Status:</p>
@@ -256,7 +255,8 @@ definePageMeta({
                   dataModal.status }}</span>
                 <span v-if="dataModal.status === 'Diproses'" class="py-2 px-4 bg-amber-500 rounded-sm text-white">{{
                   dataModal.status }}</span>
-                <span v-else class="py-2 px-4 bg-green-500 rounded-sm text-white">{{ dataModal.status }}</span>
+                <span v-if="dataModal.status === 'Selesai'" class="py-2 px-4 bg-green-500 rounded-sm text-white">{{
+                  dataModal.status }}</span>
               </div>
             </div>
             <div class="text-start">
