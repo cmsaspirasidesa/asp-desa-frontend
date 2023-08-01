@@ -3,14 +3,16 @@ import { useToast } from 'vue-toastification';
 
 const props = defineProps({
   users: Object,
-  page: Number
+  total: Number,
 });
 
 const userData = ref(props.users)
+const totalData = ref(props.total);
 const toast = useToast();
 
 watchEffect(() => {
   userData.value = props.users
+  totalData.value = props.total
 })
 
 const isShowUpdateModal = ref(false);
@@ -151,7 +153,7 @@ const deleteUser = async () => {
         <tr v-if="userData" v-for="(user, index) of userData" :key="user"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="w-4 p-4">
-            <span class="font-semibold text-black">{{ index + 1 }}</span>
+            <span class="font-semibold text-black">{{ (totalData - 1) * 10 + index + 1 }}</span>
           </td>
           <td class="px-6 py-4">{{ user.nik }}</td>
           <td class="px-6 py-4">{{ user.nama }}</td>

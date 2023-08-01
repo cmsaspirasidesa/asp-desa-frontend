@@ -19,7 +19,6 @@ const page = ref(1);
 const pageSize = ref(10);
 const query = ref('');
 const updatedId = ref('');
-
 const {data: userList} = await useFetch(
   () =>
     `http://localhost:8000/users?page[size]=${pageSize.value}&page[number]=${page.value}&search=${query.value}`,
@@ -67,7 +66,7 @@ function handleUser(updatedUserId) {
       <div>
         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Menampilkan
           <span class="font-semibold text-gray-900 dark:text-white">
-            {{ `1-${userList.data.length}` }}
+            {{ `${(page - 1) * 10 + 1} - ${page * 10 - (10 - userList.data.length)}` }}
           </span>
           dari
           <span class="font-semibold text-gray-900 dark:text-white">
