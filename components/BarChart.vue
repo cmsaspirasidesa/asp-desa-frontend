@@ -1,20 +1,59 @@
 <script setup>
-import { onMounted } from 'vue';
-import { Chart, initTE } from 'tw-elements';
+import { Bar } from 'vue-chartjs';
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
 
-onMounted(() => {
-  initTE({ Chart });
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
+
+const jwt = defineProps(['token']);
+
+const { data: monthStats } = await useFetch(
+  () => `http://localhost:8000/aspirations/statistics/per_month`,
+  {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: jwt,
+    },
+  }
+);
+
+const chartData = ref({
+  labels: monthStats.value.data.month,
+  datasets: [
+    {
+      label: 'Jumlah Aspirasi',
+      backgroundColor: '#89CFF0',
+      data: monthStats.value.data.stat,
+    },
+  ],
 });
+const chartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: false,
+});
+
 </script>
 
 <template>
-  <div class="w-2/5 overflow-hidden">
-    <canvas
-      data-te-chart="bar"
-      data-te-dataset-label="Traffic"
-      data-te-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
-      data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
-    >
-    </canvas>
+  <div>
+    <Bar
+      :data="chartData"
+      :options="chartOptions"
+    />
   </div>
 </template>

@@ -19,6 +19,7 @@ const page = ref(1);
 const pageSize = ref(10);
 const query = ref('');
 const updatedId = ref('');
+
 const {data: userList} = await useFetch(
   () =>
     `http://localhost:8000/users?page[size]=${pageSize.value}&page[number]=${page.value}&search=${query.value}`,

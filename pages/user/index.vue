@@ -42,7 +42,7 @@ onBeforeMount(() => {
 
 const {data: aspList} = await useFetch(
   () =>
-    `http://localhost:8000/useraspirations?page=${page.value}&search=${search.value}&filter=${filter.value}`,
+    `http://localhost:8000/useraspirations?page=${page.value}&search=${search.value}&status=${filter.value}`,
   {
     method: 'GET',
     headers: {

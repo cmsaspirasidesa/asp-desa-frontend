@@ -30,6 +30,14 @@ function toggleManajemen() {
             <span class="ml-3">Manjemen Aspirasi</span>
           </NuxtLink>
         </li>
+        <li>
+          <NuxtLink to="../admin/statistik"
+            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <Icon name="mdi:chart-line"
+              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
+            <span class="ml-3">Statistik Aspirasi</span>
+          </NuxtLink>
+        </li>
       </ul>
     </div>
     <div
