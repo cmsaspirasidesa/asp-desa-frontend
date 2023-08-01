@@ -58,6 +58,7 @@ function handleUser(updatedUserId) {
       <div>
         <UserTable
           :users="userList.data"
+          :total="page"
           @emit-updated-user-id="handleUser"
         />
       </div>
