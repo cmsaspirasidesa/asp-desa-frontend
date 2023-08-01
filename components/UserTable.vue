@@ -61,7 +61,7 @@ const updateSuccess = () =>
   });
 
 const deleteSuccess = () =>
-  toast.success('Data User berhasil dihapus.', {
+  toast.success('Gagal mengubah data user.', {
     position: 'bottom-right',
     timeout: 2000
   });

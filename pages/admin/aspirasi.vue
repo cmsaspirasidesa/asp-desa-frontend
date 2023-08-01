@@ -24,7 +24,7 @@ const success = () =>
   });
 
 const failed = () =>
-  toast.error('Gagal memngubah status.', {
+  toast.error('Gagal mengubah status.', {
     position: 'bottom-right',
     timeout: 2000,
   });
@@ -266,7 +266,7 @@ const defineFilter = (status) => {
           <tr>
             <th
               scope="col"
-              class="py-2 text-center"
+              class="py-2 w-[50px] text-center"
             >
               <span class="text-base">No</span>
             </th>
@@ -316,7 +316,9 @@ const defineFilter = (status) => {
               "
               class="text-center"
             >
-              <span class="font-semibold text-black">{{ index + 1 }}</span>
+              <span class="font-semibold text-black">
+                {{ (page - 1) * 10 + index + 1 }}
+              </span>
             </td>
             <td
               @click="

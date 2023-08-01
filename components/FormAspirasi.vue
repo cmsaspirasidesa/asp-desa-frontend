@@ -1,8 +1,11 @@
 <script setup>
+import { useToast } from 'vue-toastification';
+
 const images = reactive([]);
 const notImage = ref(false);
 const batas = ref(false);
 const imageFiles = reactive([]);
+const toast = useToast();
 
 function createImage(files) {
   batas.value = false;
@@ -67,6 +70,18 @@ function clearForm() {
   formAddAsp.value.location = '';
   formAddAsp.value.description = '';
 }
+
+const success = () =>
+  toast.success('Aspirasi berhasil ditambahkan.', {
+    position: 'bottom-right',
+    timeout: 2000,
+  });
+
+const failed = () =>
+  toast.error('Gagal menambah aspirasi.', {
+    position: 'bottom-right',
+    timeout: 2000,
+  });
 
 const addAspiration = async (inputData) => {
   const formData = new FormData();
