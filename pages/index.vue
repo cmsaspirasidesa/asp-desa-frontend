@@ -1,4 +1,8 @@
 <script setup>
+import {initFlowbite} from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+})
 const aspirations = ref([]);
 const page = ref(1);
 const pageSize = ref(9);

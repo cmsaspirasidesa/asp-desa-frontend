@@ -3,6 +3,10 @@ definePageMeta({
   layout: 'admin',
   middleware: ['user'],
 });
+import {initFlowbite} from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+})
 import * as jose from 'jose';
 import { Bar, Line } from 'vue-chartjs';
 import {
@@ -26,12 +30,12 @@ ChartJS.register(
   PointElement,
   CategoryScale,
   LinearScale
-  );
-   
-  const headers = useRequestHeaders(['cookie']);
-  const { data: token } = await useFetch('/api/token', { headers });
-  const { signOut } = useAuth();
-  const dataToken = jose.decodeJwt(token.value.jwt);
+);
+
+const headers = useRequestHeaders(['cookie']);
+const { data: token } = await useFetch('/api/token', { headers });
+const { signOut } = useAuth();
+const dataToken = jose.decodeJwt(token.value.jwt);
 
 const { data: monthStats } = await useFetch(
   () => `http://localhost:8000/aspirations/statistics/per_month`,
@@ -70,8 +74,13 @@ const barChartOptions = ref({
   maintainAspectRatio: false,
 });
 
+const weekNumber = ref([])
+weekStats.value.data.week.forEach(week => {
+  weekNumber.value.push(`Minggu ke-${week}`)
+});
+
 const lineChartData = ref({
-  labels: weekStats.value.data.week,
+  labels: weekNumber,
   datasets: [
     {
       label: 'Jumlah Aspirasi',
@@ -95,25 +104,29 @@ onBeforeMount(() => {
   <main class="flex flex-col p-10 pb-10 gap-10 md:ml-64">
     <div>
       <div>
-        <h1 class="text-3xl font-bold">{{ monthStats.message }}</h1>
+        <h1 class="text-3xl font-bold">
+          {{ monthStats.message.toUpperCase() }}
+        </h1>
       </div>
       <ClientOnly>
         <div>
           <Bar
-          :data="barChartData"
-          :options="barChartOptions"
+            :data="barChartData"
+            :options="barChartOptions"
           />
         </div>
       </ClientOnly>
     </div>
     <div>
       <div>
-        <h1 class="text-3xl font-bold">{{ weekStats.message }}</h1>
+        <h1 class="text-3xl font-bold">
+          {{ weekStats.message.toUpperCase() }}
+        </h1>
       </div>
       <ClientOnly>
         <div>
           <Line
-          :data="lineChartData"
+            :data="lineChartData"
             :options="lineChartOptions"
           />
         </div>

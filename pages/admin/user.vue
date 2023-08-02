@@ -3,6 +3,10 @@ definePageMeta({
   layout: 'admin',
   middleware: ['user'],
 });
+import {initFlowbite} from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+})
 import * as jose from 'jose';
 const headers = useRequestHeaders(['cookie']);
 const {data: token} = await useFetch('/api/token', {headers});

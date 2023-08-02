@@ -1,5 +1,9 @@
 <script setup>
 const {status} = useAuth()
+import {initFlowbite} from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+})
 </script>
 
 <template>

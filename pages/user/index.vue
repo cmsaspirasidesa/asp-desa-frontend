@@ -1,5 +1,9 @@
 <script setup>
 import * as jose from 'jose';
+import {initFlowbite} from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+})
 const headers = useRequestHeaders(['cookie']);
 const {data: token} = await useFetch('/api/token', {headers});
 const {signOut} = useAuth();

@@ -1,11 +1,16 @@
 <script setup>
-import {initFlowbite} from 'flowbite';
+import { initFlowbite } from 'flowbite';
 onMounted(() => {
   initFlowbite();
-})
+});
 </script>
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <Head>
+      <Title>Aspirasi Desa</Title>
+    </Head>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
