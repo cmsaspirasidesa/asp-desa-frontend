@@ -90,7 +90,8 @@ function sendDataModal(
 </script>
 
 <template>
-  <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900">
+  <section id="home-section" class="top-0 bg-slate-200 dark:bg-gray-900"
+    style="background: url('../assets/image/background2.jpg'); background-position: center; background-size: cover;">
     <div class="flex justify-around max-w-screen-xl px-4 py-4 mx-auto lg:gap-0 xl:gap-0">
       <div v-if="aspList.data" class="w-full lg:max-w-2xl">
         <FormAspirasi @emit-added-asp-id="handleAddAsp" />

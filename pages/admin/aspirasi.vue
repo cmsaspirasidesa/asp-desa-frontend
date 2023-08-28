@@ -221,7 +221,7 @@ const defineFilter = (status) => {
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="py-2 w-[70px] text-center">
-              <span class="text-base">No</span>
+              <span class="text-base">#</span>
             </th>
             <th scope="col" class="py-2 w-[300px] text-base">
               Nama User

@@ -36,7 +36,7 @@ definePageMeta({
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
             <input id="email" name="email" type="email" autocomplete="email" required="true" v-model="userEmail"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              class="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
           </div>
         </div>
 
@@ -47,7 +47,7 @@ definePageMeta({
           <div class="relative mt-2">
             <input id="password" name="password" :type="tipe" autocomplete="password" required="true"
               v-model="userPassword"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              class="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             <a class="absolute right-3 top-[4px] cursor-pointer" @click="ubah">
               <Icon :name="mata" class="text-gray-500 text-[24px]" />
             </a>

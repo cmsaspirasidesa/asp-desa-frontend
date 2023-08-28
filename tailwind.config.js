@@ -8,8 +8,8 @@ module.exports = {
     './nuxt.config.{js,ts}',
     './app.vue',
     './node_modules/flowbite/**/*.{js,ts}',
-    './node_modules/tw-elements/dist/js/**/*.js'
   ],
+  plugins: [require("flowbite/plugin"), require("@tailwindcss/forms")],
   theme: {
     extend: {
       colors: {
@@ -63,8 +63,6 @@ module.exports = {
       "Segoe UI Emoji",
       "Segoe UI Symbol",
       "Noto Color Emoji",
-      require("tw-elements/dist/plugin.cjs")
-  ],
+    ],
   },
-  plugins: [require("flowbite/plugin"), require("@tailwindcss/forms")],
 };
